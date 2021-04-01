@@ -1,4 +1,4 @@
-#Group62
+Group62
 
 We got the folders set up, more can be added if needed.
 
