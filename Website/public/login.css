@@ -1,0 +1,15 @@
+body {
+
+}
+#password{
+  display:block;
+  width: 20%;
+}
+#emailDiv{
+}
+#passwordDiv{
+  padding-top: 2%
+}
+#loginDiv{
+  text-align: center;
+}
