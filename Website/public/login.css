@@ -2,14 +2,31 @@ body {
 
 }
 #password{
+  margin: 0 auto;
   display:block;
   width: 20%;
+
+}
+#email{
+  margin: 0 auto;
+  display:block;
+  width: 20%;
+
 }
 #emailDiv{
 }
 #passwordDiv{
-  padding-top: 2%
+  padding-top: 2%;
 }
-#loginDiv{
+
+.loginDiv{
   text-align: center;
+}
+label {
+  display: block;
+  padding-bottom: 10px;
+}
+
+#buttons {
+  padding-top: 20px;
 }
