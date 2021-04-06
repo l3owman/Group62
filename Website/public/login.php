@@ -6,7 +6,7 @@
     $password = mysqli_real_escape_string($conn,$_POST['password']);
 
     if ($uname != "" && $password != ""){
-
+        $password = md5($password);
         $sql_query = "select count(*) as cntUser from User where email='$uname' and password='$password'";
         $result = mysqli_query($conn,$sql_query);
         $row = mysqli_fetch_array($result);
