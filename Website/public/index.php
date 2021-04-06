@@ -1,3 +1,8 @@
+<?php
+  session_start();
+  $test = 100;
+  $_SESSION['test'] = 200;
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,15 +26,15 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link active" href="index.html">
                   <span data-feather="home"></span>
-                  Browse
+                  Browse <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="mylistings.html">
+                <a class="nav-link" href="mylistings.html">
                   <span data-feather="file"></span>
-                  My Listings <span class="sr-only">(current)</span>
+                  My Listings
                 </a>
               </li>
               <li class="nav-item">
@@ -61,25 +66,12 @@
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-           <h1 class="h2">My Listings</h1>
+           <h1 class="h2">Browse</h1>
            <div class="btn-toolbar mb-2 mb-md-0">
            </div>
          </div>
 
-         <label for="fname">Listing Name:</label><br>
-         <input type="text" id="listingName" name="listingName"><br>
-         <label for="fname">Listing Description:</label><br>
-         <input type="text" id="listingDesc" name="listingDesc"><br>
-         <label for="fname"> Buy Now Price:</label><br>
-         <input type="text" id="listingBuyPrice" name="listingBuyPrice"><br>
-         <label for="fname">Starting Bid Price:</label><br>
-         <input type="text" id="listingBidPrice" name="listingBidPrice"><br>
-         <label for="fname">Set duration of Auction:</label><br>
-         <input type="text" id="listingDuration" name="listingDuration"><br>
-         <label for="myfile">Select images to Upload:</label>
-         <input type="file" id="firstImage" name="firstImage" multiple> <br><br>
-
-
+         <p><?php echo("{$_SESSION['u_id']}"."<br />");?></p>
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
           feather.replace()

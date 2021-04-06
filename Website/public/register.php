@@ -46,10 +46,23 @@
     // Finally, register user if there are no errors in the form
     if (count($errors) == 0) {
     	$password = md5($password_1);//encrypt the password before saving in the database
-      $date = date('d-m-y h:i:s');
+      $date = date('y-m-d h:i:s');
 
     	$sql = "INSERT INTO User (forename, surename, email, password, date_created, address, postcode) VALUES ('$forename', '$surename', '$email', '$password', '$date', '$address', '$postcode')";
       if ($conn->query($sql) === TRUE) {
+
+        $selectSQL = "SELECT user_id FROM User WHERE email='$email' LIMIT 1";
+        $select = mysqli_query($conn, $selectSQL);
+        $row = mysqli_fetch_assoc($select);
+
+
+
+        $directoryName = '$row[user_id]';
+        //Check if the directory already exists.
+        if(!is_dir($directoryName)){
+            //Directory does not exist, so lets create it.
+            mkdir("users/$row[user_id]/images", 0755, true);
+        }
         header('Location: index.html');
         exit;
       } else {
