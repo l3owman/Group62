@@ -73,21 +73,54 @@
            </div>
          </div>
 
-        <form action="upload.php" method="post" enctype="multipart/form-data">
+         <button class="open-button" onclick="openForm()">Create Listing</button>
+
+         <div class="form-popup" id="myForm">
+        <form action="upload.php" method="post" enctype="multipart/form-data" class="form-container">
          <label for="fname">Listing Name:</label><br>
          <input type="text" id="listingName" name="listingName"><br>
          <label for="fname">Listing Description:</label><br>
          <input type="text" id="listingDesc" name="listingDesc"><br>
+         <label for="buyNowCheck">Set Buy Now Price?</label>
+         <input type="checkbox" id="buyNowCheck" name="buyNowCheck" onclick="EnableDisableTextBox(this)" ><br>
+
          <label for="fname"> Buy Now Price:</label><br>
-         <input type="text" id="listingBuyPrice" name="listingBuyPrice"><br>
+         <input type="text" id="listingBuyPrice" name="listingBuyPrice" disabled=disabled><br>
          <label for="fname">Starting Bid Price:</label><br>
          <input type="text" id="listingBidPrice" name="listingBidPrice"><br>
          <label for="fname">Set duration of Auction:</label><br>
-         <input type="text" id="listingDuration" name="listingDuration"><br>
+         <select name="listingDuration" id="listingDuration">
+           <option value="quick">Quick - 5 Hours</option>
+           <option value="short">Short - 24 Hours</option>
+           <option value="medium">Medium - 3 Days</option>
+           <option value="long">Long - 7 Days</option>
+         </select><br>
          <label for="myfile">Select images to Upload:</label><br>
          <input type="file" id="firstImage" name="photo" multiple> <br>
          <input type="submit" class="btn btn-primary btn-block btn-lg" value="Upload Image" name="submit"><br>
+         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
          </form>
+
+       </div>
+
+       <script>
+          function openForm() {
+            document.getElementById("myForm").style.display = "block";
+            }
+
+            function closeForm() {
+              document.getElementById("myForm").style.display = "none";
+            }
+</script>
+
+         <script type="text/javascript">
+           function EnableDisableTextBox(buyNowCheck) {
+             if(document.getElementById('buyNowCheck').checked)
+              document.getElementById('listingBuyPrice').disabled=false;
+             else
+              document.getElementById('listingBuyPrice').disabled=true;
+           }
+         </script>
 
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>

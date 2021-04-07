@@ -1,7 +1,43 @@
 <?php
   include('config.php');
 
+
+  $errors = array();
+
   if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    //this is the new seciton for the sql stuff
+    $listing_name = mysqli_real_escape_string($conn, $_POST['listingName']);
+    $description = mysqli_real_escape_string($conn, $_POST['listingDesc']);
+    $buy_now_price = mysqli_real_escape_string($conn, $_POST['listingBuyPrice']);
+    $start_price = mysqli_real_escape_string($conn, $_POST['listingBidPrice']);
+    $end_time = mysqli_real_escape_string($conn, $_POST['listingDuration']);
+
+
+    if (empty($listing_name)) { array_push($errors, "You are required to provide a Name"); }
+    if (empty($start_price)) { array_push($errors, "You must provide a Starting Price");}
+    if (empty($end_time)) { array_push($errors, "Please select one of the provided end times"); }
+
+
+
+    //This Query needs checking that we are entering everything correctly
+    $sql = "INSERT INTO Listing (listing_name, description, buy_now_price, start_price, end_time, start_time, image) VALUES ('$start_price', '$description', '$buy_now_price', '$start_price', '$end_time', '$start_time')";
+
+
+
+    // here we need to retrieve the listing id that we have just created
+    //ready to upload the file
+    // we then need to make the listing Id as a directory in the users Directory
+
+
+
+
+//then i think this code comes next for uploading the file where the
+//path is the above directory
+//instead of user
+
+
+
     // Check if file was uploaded without errors
     if(isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0){
         $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
@@ -32,5 +68,13 @@
     } else{
         echo "Error: " . $_FILES["photo"]["error"];
     }
+
+
+
+
+
+
+
+
 }
 ?>
