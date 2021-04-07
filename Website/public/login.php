@@ -18,12 +18,15 @@
 
         if($count > 0){
 
-            $selectSQL = "SELECT user_id FROM User WHERE email='$email' LIMIT 1";
+            $selectSQL = "SELECT * FROM User WHERE email='$email' LIMIT 1";
             $select = mysqli_query($conn, $selectSQL);
             $row = mysqli_fetch_assoc($select);
 
             $_SESSION['isLoggedOn'] = true;
             $_SESSION['u_id'] = $row[user_id];
+            $_SESSION['forename'] = $row[forename];
+            $_SESSION['surname'] = $row[surname];
+            $_SESSION['university'] = $row[university];
             header('Location: index.php');
             exit;
         }else{

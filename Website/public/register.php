@@ -1,82 +1,145 @@
-<?php
+<!DOCTYPE html>
 
-  include('config.php');
-  // initializing variables
-  $email    = "";
-  $errors = array();
+<html>
+  </head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="jquery.validate.min.js"></script>
 
-  // connect to the database
+  </head>
+  <?php
+  //remove <script></script> and add php start and close tag
+  //comment these two lines when code started working fine
+    error_reporting(E_ALL);
+    ini_set('display_errors',1);
 
-  // REGISTER USER
-  if (isset($_POST['register'])) {
-    // receive all input values from the form
-    $forename = mysqli_real_escape_string($conn, $_POST['forename']);
-    $surname = mysqli_real_escape_string($conn, $_POST['surname']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password_1 = mysqli_real_escape_string($conn, $_POST['password']);
-    $password_2 = mysqli_real_escape_string($conn, $_POST['password_dup']);
-    $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
+    $filename = 'universities.txt';
+    $eachlines = file($filename, FILE_IGNORE_NEW_LINES);
 
-    // form validation: ensure that the form is correctly filled ...
-    // by adding (array_push()) corresponding error unto $errors array
-    if (empty($forename)) { array_push($errors, "Forename is required"); }
-    if (empty($surname)) { array_push($errors, "Surname is required"); }
-    if (empty($email)) { array_push($errors, "Email is required"); }
-    if (empty($password_1)) { array_push($errors, "Password is required"); }
-    if ($password_1 != $password_2) {
-  	array_push($errors, "The two passwords do not match");
+  ?>
+  <body>
+    <div class="login-form">
+        <form action="register_submit.php" class="needs-validation" novalidate name="reg_form" method="POST">
+          <div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
+            <h4 class="modal-title">Register</h4>
+             <div class="row">
+                <div class="form-group col-md-6">
+                  <label class="control-label" for="forename">Forename</label>
+                  <input type="text" class="form-control"  placeholder="Forename" required="required" name="forename">
+                  <div class="valid-feedback">
+                  </div>
+                  <div class="invalid-feedback">
+                    Please enter a forename.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="control-label" for="surname">Surname</label>
+                  <input class="form-control"  placeholder="Surname" required="required" name="surname">
+                  <div class="valid-feedback">
+                  </div>
+                  <div class="invalid-feedback">
+                    Please enter a surname.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label" for="email">Email Address</label>
+                  <input class="form-control" placeholder="Email" required="required" type="email" name="email" id="email">
+                  <div class="valid-feedback">
+                  </div>
+                  <div class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label" for="password">Password</label>
+                  <input type="password" class="form-control" placeholder="Password" required="required" name="password" id="password" >
+              </div>
+              <div class="form-group">
+                  <label class="control-label" for="password_dup">Confirm Password</label>
+                  <input type="password" class="form-control" placeholder="Confirm Password" required="required" name="password_dup" id="password_confirm" >
+                  <div id="confirm_password"></div>
+              </div>
+              <div class="form-group">
+                <label for="university">Select Current Institution</label>
+                <select class="form-control" name="university">
+                 <option selected>Please Select</option>
+                 <?php foreach($eachlines as $lines){
+                      echo "<option value='$lines'".$lines."'>$lines</option>";
+                  }?>
+                </select>
+              </div>
+              <div class="form-group">
+                  <label class="control-label" for="address">Address</label>
+                  <input class="form-control" placeholder="Address" required="required" name="address">
+                  <div class="valid-feedback">
+                  </div>
+                  <div class="invalid-feedback">
+                    Please enter a valid address.
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label" for="postcode">Postcode</label>
+                  <input class="form-control" placeholder="Postcode" required="required" name="postcode" required minlength="6" maxlength="8">
+                  <div class="valid-feedback">
+                  </div>
+                  <div class="invalid-feedback">
+                    Please enter a valid postcode.
+                  </div>
+              </div>
+              <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register" name="register">
+          </form>
+
+          <div class="text-center small">Already have an account? <a href="login.html">Login</a></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function checkPasswordMatch() {
+        var password = $("#password").val();
+        var confirmPassword = $("#password_confirm").val();
+        if (password != confirmPassword)
+            var element = document.getElementById("confirm_password");
+            element.classList.remove("valid-feedback");
+            element.classList.add("invalid-feedback");
+
+        else
+            var element = document.getElementById("confirm_password");
+            element.classList.remove("-feedback");
+            element.classList.add("invalid-feedback");
     }
-    if (empty($address)) { array_push($errors, "Address is required"); }
-    if (empty($postcode)) { array_push($errors, "Postcode is required"); }
+    $(document).ready(function () {
+       $("#password_confirm").keyup(checkPasswordMatch);
+    });
+    </script>
+  <script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
 
-    // first check the database to make sure
-    // a user does not already exist with the same username and/or email
-    $user_check_query = "SELECT * FROM User WHERE email='$email' LIMIT 1";
-    $result = mysqli_query($conn, $user_check_query);
-    $user = mysqli_fetch_assoc($result);
-
-    if ($user) { // if user exists
-      if ($user['email'] === $email) {
-        array_push($errors, "Email already in use");
-      }
-    }
-
-
-    // Finally, register user if there are no errors in the form
-    if (count($errors) == 0) {
-    	$password = md5($password_1);//encrypt the password before saving in the database
-      $date = date('y-m-d h:i:s');
-
-    	$sql = "INSERT INTO User (forename, surname, email, password, date_created, address, postcode) VALUES ('$forename', '$surname', '$email', '$password', '$date', '$address', '$postcode')";
-      if ($conn->query($sql) === TRUE) {
-
-        $selectSQL = "SELECT user_id FROM User WHERE email='$email' LIMIT 1";
-        $select = mysqli_query($conn, $selectSQL);
-        $row = mysqli_fetch_assoc($select);
-
-
-
-        $directoryName = '$row[user_id]';
-        //Check if the directory already exists.
-        if(!is_dir($directoryName)){
-            //Directory does not exist, so lets create it.
-            mkdir("users/$row[user_id]/images", 0755, true);
-        }
-        header('Location: index.html');
-        exit;
-      } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-      }
-
-
-
-
-  }else{
-    foreach($errors as $e){
-        echo $e . "<br />";
-    }
-  }
-
- $conn->close();
-}
+  </script>
+  </body>
+</html>
