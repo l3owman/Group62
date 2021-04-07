@@ -1,7 +1,5 @@
 <?php
   session_start();
-  $test = 100;
-  $_SESSION['test'] = 200;
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +13,11 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="login.html">Sign In</a>
+          <?php if( $_SESSION['isLoggedOn']): ?>
+             <a class="nav-link" href="logout.php">Log Out</a>
+          <?php else: ?>
+              <a class="nav-link" href="login.html">Sign In</a>
+          <?php endif; ?>
         </li>
       </ul>
     </nav>
@@ -32,7 +34,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="mylistings.html">
+                <a class="nav-link" href="mylistings.php">
                   <span data-feather="file"></span>
                   My Listings
                 </a>
