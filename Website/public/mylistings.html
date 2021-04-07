@@ -66,6 +66,7 @@
            </div>
          </div>
 
+        <form action="mylistings.php" method="post" enctype="multipart/form-data">
          <label for="fname">Listing Name:</label><br>
          <input type="text" id="listingName" name="listingName"><br>
          <label for="fname">Listing Description:</label><br>
@@ -76,9 +77,10 @@
          <input type="text" id="listingBidPrice" name="listingBidPrice"><br>
          <label for="fname">Set duration of Auction:</label><br>
          <input type="text" id="listingDuration" name="listingDuration"><br>
-         <label for="myfile">Select images to Upload:</label>
-         <input type="file" id="firstImage" name="firstImage" multiple> <br><br>
-
+         <label for="myfile">Select images to Upload:</label><br>
+         <input type="file" id="firstImage" name="firstImage" multiple> <br>
+         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Upload Image" name="submit"><br>
+         </form>
 
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
