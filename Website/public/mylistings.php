@@ -90,10 +90,10 @@
          <input type="text" id="listingBidPrice" name="listingBidPrice"><br>
          <label for="fname">Set duration of Auction:</label><br>
          <select name="listingDuration" id="listingDuration">
-           <option value="quick">Quick - 5 Hours</option>
-           <option value="short">Short - 24 Hours</option>
-           <option value="medium">Medium - 3 Days</option>
-           <option value="long">Long - 7 Days</option>
+           <option value="5">Quick - 5 Hours</option>
+           <option value="24">Short - 24 Hours</option>
+           <option value="72">Medium - 3 Days</option>
+           <option value="168">Long - 7 Days</option>
          </select><br>
          <label for="myfile">Select images to Upload:</label><br>
          <input type="file" id="firstImage" name="photo" multiple> <br>

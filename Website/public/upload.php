@@ -12,17 +12,23 @@
     $buy_now_price = mysqli_real_escape_string($conn, $_POST['listingBuyPrice']);
     $start_price = mysqli_real_escape_string($conn, $_POST['listingBidPrice']);
     $end_time = mysqli_real_escape_string($conn, $_POST['listingDuration']);
+    $start_time = date('y-m-d h:i:s');
+    $currentTime = time();
+    $end_time = $currentTime + ($end_time *(60*60));
+    $end_time = date('y-m-d h:i:s', $end_time);
 
 
-    if (empty($listing_name)) { array_push($errors, "You are required to provide a Name"); }
-    if (empty($start_price)) { array_push($errors, "You must provide a Starting Price");}
-    if (empty($end_time)) { array_push($errors, "Please select one of the provided end times"); }
 
-
-
-    //This Query needs checking that we are entering everything correctly
-    $sql = "INSERT INTO Listing (listing_name, description, buy_now_price, start_price, end_time, start_time, image) VALUES ('$start_price', '$description', '$buy_now_price', '$start_price', '$end_time', '$start_time')";
-
+    //
+    // if (empty($listing_name)) { array_push($errors, "You are required to provide a Name"); }
+    // if (empty($start_price)) { array_push($errors, "You must provide a Starting Price");}
+    // if (empty($end_time)) { array_push($errors, "Please select one of the provided end times"); }
+    //
+    //
+    //
+    // //This Query needs checking that we are entering everything correctly
+    // $sql = "INSERT INTO Listing (listing_name, description, buy_now_price, start_price, end_time, start_time, image) VALUES ('$start_price', '$description', '$buy_now_price', '$start_price', '$end_time', '$start_time')";
+    //
 
 
     // here we need to retrieve the listing id that we have just created
@@ -61,6 +67,8 @@
             } else{
                 move_uploaded_file($_FILES["photo"]["tmp_name"], "users/" . $filename);
                 echo "Your file was uploaded successfully.";
+                echo $start_time;
+                echo $end_time;
             }
         } else{
             echo "Error: There was a problem uploading your file. Please try again.";
@@ -68,11 +76,6 @@
     } else{
         echo "Error: " . $_FILES["photo"]["error"];
     }
-
-
-
-
-
 
 
 
