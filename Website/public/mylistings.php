@@ -85,7 +85,7 @@
          <label for="fname">Set duration of Auction:</label><br>
          <input type="text" id="listingDuration" name="listingDuration"><br>
          <label for="myfile">Select images to Upload:</label><br>
-         <input type="file" id="firstImage" name="firstImage" multiple> <br>
+         <input type="file" id="firstImage" name="photo" multiple> <br>
          <input type="submit" class="btn btn-primary btn-block btn-lg" value="Upload Image" name="submit"><br>
          </form>
 
