@@ -11,7 +11,7 @@
   if (isset($_POST['register'])) {
     // receive all input values from the form
     $forename = mysqli_real_escape_string($conn, $_POST['forename']);
-    $surename = mysqli_real_escape_string($conn, $_POST['surename']);
+    $surname = mysqli_real_escape_string($conn, $_POST['surname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password_1 = mysqli_real_escape_string($conn, $_POST['password']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_dup']);
@@ -21,7 +21,7 @@
     // form validation: ensure that the form is correctly filled ...
     // by adding (array_push()) corresponding error unto $errors array
     if (empty($forename)) { array_push($errors, "Forename is required"); }
-    if (empty($surename)) { array_push($errors, "Surename is required"); }
+    if (empty($surname)) { array_push($errors, "Surname is required"); }
     if (empty($email)) { array_push($errors, "Email is required"); }
     if (empty($password_1)) { array_push($errors, "Password is required"); }
     if ($password_1 != $password_2) {
@@ -48,7 +48,7 @@
     	$password = md5($password_1);//encrypt the password before saving in the database
       $date = date('y-m-d h:i:s');
 
-    	$sql = "INSERT INTO User (forename, surename, email, password, date_created, address, postcode) VALUES ('$forename', '$surename', '$email', '$password', '$date', '$address', '$postcode')";
+    	$sql = "INSERT INTO User (forename, surname, email, password, date_created, address, postcode) VALUES ('$forename', '$surname', '$email', '$password', '$date', '$address', '$postcode')";
       if ($conn->query($sql) === TRUE) {
 
         $selectSQL = "SELECT user_id FROM User WHERE email='$email' LIMIT 1";
@@ -73,7 +73,9 @@
 
 
   }else{
-    echo (count($errors));
+    foreach($errors as $e){
+        echo $e . "<br />";
+    }
   }
 
  $conn->close();

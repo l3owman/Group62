@@ -22,6 +22,7 @@
             $select = mysqli_query($conn, $selectSQL);
             $row = mysqli_fetch_assoc($select);
 
+            $_SESSION['isLoggedOn'] = true;
             $_SESSION['u_id'] = $row[user_id];
             header('Location: index.php');
             exit;
