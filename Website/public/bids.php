@@ -78,12 +78,29 @@
           </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4 mb-3 border-bottom">
-           <h1 class="h2">Bids</h1>
-           <div class="btn-toolbar mb-2 mb-md-0">
+        <?php if( $_SESSION['isLoggedOn']): ?>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4 mb-3 border-bottom">
+             <h1 class="h2">Bids</h1>
+             <div class="btn-toolbar mb-2 mb-md-0">
+             </div>
            </div>
-         </div>
-         <p><?php echo("{$_SESSION['u_id']}"."<br />");?></p>
+        <?php else: ?>
+          <div class="container h-100">
+              <div class="row align-items-center h-100">
+                  <div class="col-6 mx-auto">
+                      <div class="card text-center">
+                          <div class="card-header w-100">
+                            <h5><i data-feather="alert-circle" alt="alert-circle" style="width: 30px; height: 30px"></i> Unauthorised Access </h5>
+                          </div>
+                          <div class="card-body">
+                            <p class="card-text">Sorry, you do not have access to this page. To view, please log in below.</p>
+                            <a href="login.html" class="btn btn-primary">Login</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <?php endif; ?>
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
           feather.replace()
