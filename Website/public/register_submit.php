@@ -1,12 +1,12 @@
 <?php
-  
+
   include('config.php');
   // initializing variables
   $email    = "";
-  $errors = array(); 
-  
+  $errors = array();
+
   // connect to the database
-  
+
   // REGISTER USER
   if (isset($_POST['register'])) {
     // receive all input values from the form
@@ -18,9 +18,9 @@
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
     $university = mysqli_real_escape_string($conn,$_POST['university']);
-     
-    
-  
+
+
+
     // form validation: ensure that the form is correctly filled ...
     // by adding (array_push()) corresponding error unto $errors array
     if (empty($forename)) { array_push($errors, "Forename is required"); }
@@ -33,34 +33,34 @@
     if (empty($address)) { array_push($errors, "Address is required"); }
     if (empty($postcode)) { array_push($errors, "Postcode is required"); }
     if (empty($university)) { array_push($errors, "University is required"); }
-  
-    // first check the database to make sure 
+
+    // first check the database to make sure
     // a user does not already exist with the same username and/or email
     $user_check_query = "SELECT * FROM User WHERE email='$email' LIMIT 1";
     $result = mysqli_query($conn, $user_check_query);
     $user = mysqli_fetch_assoc($result);
-    
-    if ($user) { // if user exists  
+
+    if ($user) { // if user exists
       if ($user['email'] === $email) {
         array_push($errors, "Email already in use");
       }
     }
-   
-  
+
+
     // Finally, register user if there are no errors in the form
     if (count($errors) == 0) {
     	$password = md5($password_1);//encrypt the password before saving in the database
       $date = date('y-m-d h:i:s');
-  
+
     	$sql = "INSERT INTO User (forename, surname, email, password, university, date_created, address, postcode) VALUES ('$forename', '$surname', '$email', '$password', '$university', '$date', '$address', '$postcode')";
       if ($conn->query($sql) === TRUE) {
-        
+
         $selectSQL = "SELECT user_id FROM User WHERE email='$email' LIMIT 1";
         $select = mysqli_query($conn, $selectSQL);
         $row = mysqli_fetch_assoc($select);
-        
-       
-        
+
+
+
         $directoryName = '$row[user_id]';
         //Check if the directory already exists.
         if(!is_dir($directoryName)){
@@ -72,15 +72,15 @@
       } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
       }
-           
-      
-     
-      
+
+
+
+
   }else{
     foreach($errors as $e){
         echo $e . "<br />";
     }
   }
-  
- $conn->close();  
+
+ $conn->close();
 }

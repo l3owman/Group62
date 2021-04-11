@@ -3,7 +3,7 @@
   $database = "sgcdeega";
   $username = "sgcdeega";
   $password = "group62pass";
-    
+
     // Create connection
   $conn = mysqli_connect($servername,$username,$password,$database);
 

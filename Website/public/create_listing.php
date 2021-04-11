@@ -86,40 +86,17 @@
            </div>
             <ul class="nav nav-tabs nav-justified mb-3">
               <li class="nav-item">
-                <a class="nav-link active" href="mylistings.php">Active Listings</a>
+                <a class="nav-link" href="mylistings.php">Active Listings</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Previous Listings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="create_listing.php">Create Listing</a>
+                <a class="nav-link active" href="create_listing.php">Create Listing</a>
               </li>
             </ul>
 
-           <div class="card" style="max-height: 32rem">
-             <div class="card-header w-100">
-                <h5>Kettle</h5>
-              </div>
-              <div class="row no-gutters">
-                <div class="col-auto">
-                    <img src="test.png" class="img-fluid" alt="" width="200" height="90">
-                </div>
-                <div class="col">
-                    <div class="card-block px-2">
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                        </div>
-                        <div class="card-block text-center px-2">
-                          <p class="card-text">Highest Bid: </p>
-                          <p class="card-text">Number of Bids: </p>
-                          <p class="card-text">Time Remaining: </p>
-                          <a href="#" class="btn btn-primary">Edit Listing</a>
-                          <a href="#" class="btn btn-primary">Remove Listing</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer w-100 text-muted">
-                Listing Created at:
-            </div>
+
          </div>
         <?php else: ?>
            <div class="container h-100">

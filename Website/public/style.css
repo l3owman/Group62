@@ -51,7 +51,7 @@
 	.login-form .form-control, .login-form .btn {
 		min-height: 40px;
 		border-radius: 2px;
-        transition: all 0.5s;
+    transition: all 0.5s;
 	}
 	.login-form .close {
         position: absolute;
@@ -81,19 +81,27 @@
     .login-form a {
         color: #ec2414;
     }
-    .inline
-    {
-    display: inline;
-    padding: 30px;
+
+    .card-horizontal {
+      display: flex;
+      flex: 1 1 auto;
     }
 
-    #register-forename{
-      width: 49%;
-      float: left;
-    }
-    #register-surname{
-      width: 49%;
-      float: right;
+
+
+    .Absolute-Center {
+         background-color: #000;
+          width: 800px;
+          height: 200px;
+          position: absolute;
+          top: 37%;
+          left: 34%;
+          display: block;
+          margin: 0 auto;
+          font-weight: bold;
+          font-size: 100px;
+          text-transform: uppercase;
+          color: #ccc;
     }
 
     .sidebar {
@@ -146,6 +154,13 @@
       text-transform: uppercase;
     }
 
+    .scrollable{
+      overflow-y: auto;
+      max-height: 100px;
+    }
+
+
+
     /*
      * Content
      */
@@ -186,67 +201,4 @@
       border-color: transparent;
       box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
     }
-
-    .open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
-}
-
-.form-popup {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
-
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-}
-
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-.form-container .btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
-}
-
-
-
-
-
-
-
 </style>
