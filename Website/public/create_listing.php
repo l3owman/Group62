@@ -95,30 +95,32 @@
                 <a class="nav-link active" href="create_listing.php">Create Listing</a>
               </li>
             </ul>
-            <form action="upload.php" method="post" enctype="multipart/form-data" class="form-container">
-         <label for="fname">Listing Name:</label><br>
-         <input type="text" id="listingName" name="listingName"><br>
-         <label for="fname">Listing Description:</label><br>
-         <input type="text" id="listingDesc" name="listingDesc"><br>
-         <label for="buyNowCheck">Set Buy Now Price?</label>
-         <input type="checkbox" id="buyNowCheck" name="buyNowCheck" onclick="EnableDisableTextBox(this)" ><br>
+              <form action="upload.php" method="post" enctype="multipart/form-data" class="form-container">
+               <label for="fname">Listing Name:</label><br>
+               <input type="text" id="listingName" name="listingName"><br>
+               <label for="fname">Listing Description:</label><br>
+               <input type="text" id="listingDesc" name="listingDesc"><br>
+               <label for="buyNowCheck">Set Buy Now Price?</label>
+               <input type="checkbox" id="buyNowCheck" name="buyNowCheck" onclick="EnableDisableTextBox(this)" ><br>
 
-         <label for="fname"> Buy Now Price:</label><br>
-         <input type="text" id="listingBuyPrice" name="listingBuyPrice" disabled=disabled><br>
-         <label for="fname">Starting Bid Price:</label><br>
-         <input type="text" id="listingBidPrice" name="listingBidPrice"><br>
-         <label for="fname">Set duration of Auction:</label><br>
-         <select name="listingDuration" id="listingDuration">
-           <option value="5">Quick - 5 Hours</option>
-           <option value="24">Short - 24 Hours</option>
-           <option value="72">Medium - 3 Days</option>
-           <option value="168">Long - 7 Days</option>
-         </select><br>
-         <label for="myfile">Select images to Upload:</label><br>
-         <input type="file" id="firstImage" name="photo" multiple> <br>
-         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Upload Image" name="submit"><br>
-         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-         </form>
+               <label for="fname"> Buy Now Price:</label><br>
+               <input type="text" id="listingBuyPrice" name="listingBuyPrice" disabled=disabled><br>
+               <label for="fname">Starting Bid Price:</label><br>
+               <input type="text" id="listingBidPrice" name="listingBidPrice"><br>
+               <label for="fname">Set duration of Auction:</label><br>
+               <select name="listingDuration" id="listingDuration">
+                 <option value="5">Quick - 5 Hours</option>
+                 <option value="24">Short - 24 Hours</option>
+                 <option value="72">Medium - 3 Days</option>
+                 <option value="168">Long - 7 Days</option>
+               </select><br>
+               <label for="myfile">Select images to Upload:</label><br>
+               <input type="file" id="firstImage" name="photo" multiple> <br>
+               <input type="submit" class="btn btn-primary btn-block btn-lg" value="Upload Image" name="submit"><br>
+               <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+             </form>
+
+
 
          </div>
         <?php else: ?>
@@ -140,9 +142,6 @@
         <?php endif; ?>
         </div>
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-          feather.replace()
-        </script>
         <script type="text/javascript">
            function EnableDisableTextBox(buyNowCheck) {
              if(document.getElementById('buyNowCheck').checked)
@@ -152,6 +151,8 @@
            }
          </script>
 
-
+        <script>
+          feather.replace()
+        </script>
       </body>
 </html>
