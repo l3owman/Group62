@@ -31,24 +31,37 @@
     $newDate = date('y-m-d h:i:s', strtotime($newDate. " + {$listingDuration} hours"));
 
 
-    if(isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0){
-        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-        $filename = $_FILES["photo"]["name"];
-        $filetype = $_FILES["photo"]["type"];
-        $filesize = $_FILES["photo"]["size"];
-        $countFile = count($_FILES["photo"]["name"]);
+    if(isset($_FILES["photo"])){
 
+        $countfiles = count($_FILES["photo"]["name"]);
+
+        for($i=0;$i<$countfiles;$i++){
+          $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+          $filename = $_FILES["photo"]["name"][$i];
+          $filetype = $_FILES["photo"]["type"][$i];
+          $filesize = $_FILES["photo"]["size"][$i];
+
+          if(in_array($filetype, $allowed)){
 
         // Verify file extension
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        if(!array_key_exists($ext, $allowed)) die("Error: Please select a valid file format.");
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+              if(!array_key_exists($ext, $allowed)) die("Error: Please select a valid file format.");
 
         // Verify file size - 5MB maximum
-        $maxsize = 5 * 1024 * 1024;
-        if($filesize > $maxsize) die("Error: File size is larger than the allowed limit.");
+              $maxsize = 5 * 1024 * 1024;
+              if($filesize > $maxsize) die("Error: File size is larger than the allowed limit.");
+            }
+          else{
+            echo "Error: There was a problem uploading your file. Please try again.";
+          }
+        }
 
+
+        $filename = $_FILES["photo"]["name"][0];
+        $filetype = $_FILES["photo"]["type"][0];
+        $filesize = $_FILES["photo"]["size"][0];
         // Verify MYME type of the file
-        if(in_array($filetype, $allowed)){
+
 
             $sql = "INSERT INTO Listing (seller_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price) VALUES ('$seller_id', '$listing_name', '$description', '$filename', '$bstDate', '$newDate', 0, 0, '$bool', '$buyNow', '$bid_price')";
             if ($conn->query($sql) === TRUE) {
@@ -66,12 +79,19 @@
                   //Check if the directory already exists.
                   if(!is_dir($directoryName)){
                       //Directory does not exist, so lets create it.
-                      $target_file = "users/$seller_id/listings/$row[max_listing_id]/images/$filename";
+
                       mkdir("users/$seller_id/listings/$row[max_listing_id]/images", 0755, true);
 
+                      for($i=0;$i<$countfiles;$i++){
+                        $filename = $_FILES["photo"]["name"][$i];
+                        $target_file = "users/$seller_id/listings/$row[max_listing_id]/images/$filename";
 
-                      move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-                      header('Location: mylistings.php');
+                      move_uploaded_file($_FILES["photo"]["tmp_name"][$i], $target_file);
+                    }
+
+
+
+                    header('Location: mylistings.php');
                   }else{
                     echo 'This is already a listing';
                 }
@@ -84,11 +104,9 @@
               echo "Error: " . $sql . "<br>" . $conn->error;
             }
 
-        } else{
-            echo "Error: There was a problem uploading your file. Please try again.";
         }
-    } else{
-        echo "Error: " . $_FILES["photo"]["error"];
-    }
-}
+     } else{
+         echo "Error: " . $_FILES["photo"]["error"];
+     }
+
 ?>

@@ -168,7 +168,7 @@
                     <span class="input-group-text">Upload</span>
                   </div>
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="image" name="photo" multiple>
+                    <input type="file" class="custom-file-input" id="image" name="photo[]" multiple>
                     <label class="custom-file-label" id="image" for="image">Choose file</label>
 
                   </div>
