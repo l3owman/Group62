@@ -36,6 +36,7 @@
         $filename = $_FILES["photo"]["name"];
         $filetype = $_FILES["photo"]["type"];
         $filesize = $_FILES["photo"]["size"];
+        $countFile = count($_FILES["photo"]["name"]);
 
 
         // Verify file extension
@@ -51,12 +52,12 @@
 
             $sql = "INSERT INTO Listing (seller_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price) VALUES ('$seller_id', '$listing_name', '$description', '$filename', '$bstDate', '$newDate', 0, 0, '$bool', '$buyNow', '$bid_price')";
             if ($conn->query($sql) === TRUE) {
-              $selectSQL = "SELECT listing_id FROM Listing WHERE seller_id='$seller_id' LIMIT 1";
+              $selectSQL = "SELECT MAX(listing_id) AS max_listing_id FROM Listing WHERE seller_id='$seller_id' LIMIT 1";
               $select = mysqli_query($conn, $selectSQL);
               $row = mysqli_fetch_assoc($select);
 
 
-              $filepath = "users/$seller_id/listings/$row[listing_id]/images/$filename";
+              $filepath = "users/$seller_id/listings/$row[max_listing_id]/images/$filename";
 
               $sqlUpdate = "UPDATE Listing SET images = '$filepath' WHERE images = '$filename'";
 
@@ -65,8 +66,8 @@
                   //Check if the directory already exists.
                   if(!is_dir($directoryName)){
                       //Directory does not exist, so lets create it.
-                      $target_file = "users/$seller_id/listings/$row[listing_id]/images/$filename";
-                      mkdir("users/$seller_id/listings/$row[listing_id]/images", 0755, true);
+                      $target_file = "users/$seller_id/listings/$row[max_listing_id]/images/$filename";
+                      mkdir("users/$seller_id/listings/$row[max_listing_id]/images", 0755, true);
 
 
                       move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
