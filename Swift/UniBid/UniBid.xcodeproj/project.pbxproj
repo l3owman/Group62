@@ -17,6 +17,7 @@
 		8D0EB0852620378500F26B35 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB0842620378500F26B35 /* LogInView.swift */; };
 		8D0EB088262037B300F26B35 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB087262037B300F26B35 /* RegisterView.swift */; };
 		8D0EB08C262037D800F26B35 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB08B262037D800F26B35 /* HomeView.swift */; };
+		8D62A9542631DEB4009CB506 /* addAuctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D62A9532631DEB4009CB506 /* addAuctionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8D0EB0842620378500F26B35 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		8D0EB087262037B300F26B35 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		8D0EB08B262037D800F26B35 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8D62A9532631DEB4009CB506 /* addAuctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAuctionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				8D0EB0842620378500F26B35 /* LogInView.swift */,
 				8D0EB087262037B300F26B35 /* RegisterView.swift */,
 				8D0EB08B262037D800F26B35 /* HomeView.swift */,
+				8D62A9532631DEB4009CB506 /* addAuctionView.swift */,
 				8D0EB072262030D900F26B35 /* Main.storyboard */,
 				8D0EB078262030D900F26B35 /* Assets.xcassets */,
 				8D0EB07A262030D900F26B35 /* LaunchScreen.storyboard */,
@@ -155,6 +158,7 @@
 				8D0EB06D262030D900F26B35 /* AppDelegate.swift in Sources */,
 				8D0EB088262037B300F26B35 /* RegisterView.swift in Sources */,
 				8D0EB077262030D900F26B35 /* UniBid.xcdatamodeld in Sources */,
+				8D62A9542631DEB4009CB506 /* addAuctionView.swift in Sources */,
 				8D0EB06F262030D900F26B35 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
