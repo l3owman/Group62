@@ -20,7 +20,11 @@
 ?>
 
 <?php function createCard(array $jsonArr) { ?>
-        <?php $firstFile = scandir($jsonArr["images"], SCANDIR_SORT_ASCENDING)[2]; ?>
+        <?php
+        $firstFile = scandir($jsonArr["images"], SCANDIR_SORT_ASCENDING)[2];
+        $date = date_create($jsonArr["end_time"]);
+        $formatedDate = date_format($date,"l jS \of F Y H:i");
+         ?>
 
          <div class="card w-100 align-item-center mb-4" style="max-height: 25rem;">
              <div class="card-header w-100">
@@ -38,19 +42,23 @@
                   </div>
                   <div class="card-block text-center px-2">
                     <h5 class="mb-4 mt-2">Listing Details:</h5>
-                          <p class="card-text">Highest Bid: </p>
-                          <p class="card-text">Number of Bids: </p>
+                          <p class="card-text">Highest Bid: &#163;<?= $jsonArr["bid_highest"] ?>  </p>
+                          <p class="card-text">Number of Bids: <?= $jsonArr["num_of_bids"] ?> </p>
                           <hr>
                           <a href="#" class="btn btn-primary">Edit Listing</a>
                           <a href="#" class="btn btn-primary">Remove Listing</a>
                         </div>
                   </div>
                   <div class="card-footer   text-muted">
-                    <div class="text-left">
-                      Time Remaining:
+                    <div class="text-left" id="demo">
+
+
+                      Active Until: <?=  $formatedDate ?>
                     </div>
                   </div>
          </div>
+
+
 <?php } ?>
 
 <!DOCTYPE html>
@@ -141,7 +149,7 @@
                 <a class="nav-link active" href="mylistings.php">Active Listings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Previous Listings</a>
+                <a class="nav-link" href="previous_listings.php">Previous Listings</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="create_listing.php">Create Listing</a>
@@ -153,6 +161,7 @@
               }
             ?>
         <?php else: ?>
+
            <div class="container h-100">
               <div class="row align-items-center h-100">
                   <div class="col-6 mx-auto">
