@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E9A1C79263AC83C0030D6A7 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A1C78263AC83C0030D6A7 /* BrowseViewController.swift */; };
+		3E9A1C7D263ACAB50030D6A7 /* AuctionCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A1C7C263ACAB50030D6A7 /* AuctionCardCell.swift */; };
+		3E9A1C81263B36F80030D6A7 /* MyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A1C80263B36F80030D6A7 /* MyListingsViewController.swift */; };
 		8D0EB06D262030D900F26B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB06C262030D900F26B35 /* AppDelegate.swift */; };
 		8D0EB06F262030D900F26B35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB06E262030D900F26B35 /* SceneDelegate.swift */; };
 		8D0EB071262030D900F26B35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB070262030D900F26B35 /* ViewController.swift */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E9A1C78263AC83C0030D6A7 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		3E9A1C7C263ACAB50030D6A7 /* AuctionCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuctionCardCell.swift; sourceTree = "<group>"; };
+		3E9A1C80263B36F80030D6A7 /* MyListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListingsViewController.swift; sourceTree = "<group>"; };
 		8D0EB069262030D900F26B35 /* UniBid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniBid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0EB06C262030D900F26B35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D0EB06E262030D900F26B35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				8D0EB06C262030D900F26B35 /* AppDelegate.swift */,
+				3E9A1C7C263ACAB50030D6A7 /* AuctionCardCell.swift */,
 				8D0EB06E262030D900F26B35 /* SceneDelegate.swift */,
 				8D0EB070262030D900F26B35 /* ViewController.swift */,
 				8D0EB0842620378500F26B35 /* LogInView.swift */,
@@ -78,6 +85,8 @@
 				8D0EB07A262030D900F26B35 /* LaunchScreen.storyboard */,
 				8D0EB07D262030D900F26B35 /* Info.plist */,
 				8D0EB075262030D900F26B35 /* UniBid.xcdatamodeld */,
+				3E9A1C78263AC83C0030D6A7 /* BrowseViewController.swift */,
+				3E9A1C80263B36F80030D6A7 /* MyListingsViewController.swift */,
 			);
 			path = UniBid;
 			sourceTree = "<group>";
@@ -152,7 +161,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E9A1C7D263ACAB50030D6A7 /* AuctionCardCell.swift in Sources */,
 				8D0EB0852620378500F26B35 /* LogInView.swift in Sources */,
+				3E9A1C79263AC83C0030D6A7 /* BrowseViewController.swift in Sources */,
+				3E9A1C81263B36F80030D6A7 /* MyListingsViewController.swift in Sources */,
 				8D0EB08C262037D800F26B35 /* HomeView.swift in Sources */,
 				8D0EB071262030D900F26B35 /* ViewController.swift in Sources */,
 				8D0EB06D262030D900F26B35 /* AppDelegate.swift in Sources */,

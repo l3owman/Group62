@@ -189,7 +189,7 @@
         <!--My listings-->
         <scene sceneID="cs3-zt-8YY">
             <objects>
-                <viewController id="bOS-D3-MmL" sceneMemberID="viewController">
+                <viewController id="bOS-D3-MmL" customClass="MyListingsViewController" customModule="UniBid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hyG-CE-Ht8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,14 +211,14 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="E9t-Rn-882">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AuctionCard" id="E9t-Rn-882" customClass="AuctionCardCell" customModule="UniBid" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="172" height="227"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uL5-YR-gFW">
                                             <rect key="frame" x="0.0" y="0.0" width="172" height="227"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="electric-kettle-500x500" translatesAutoresizingMaskIntoConstraints="NO" id="6OL-Mz-LPH">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="T_5054781674467_T1" translatesAutoresizingMaskIntoConstraints="NO" id="6OL-Mz-LPH">
                                                     <rect key="frame" x="0.0" y="0.0" width="172" height="164"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -240,6 +240,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="My listings" id="9fq-to-2zN"/>
+                    <connections>
+                        <outlet property="collectionView" destination="p4Q-e6-PQN" id="k0k-X1-AIu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ffW-iv-V4a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -495,17 +498,44 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="iDY-w3-YdP" kind="relationship" relationship="rootViewController" id="tI5-Qw-cve"/>
+                        <segue destination="iDY-w3-YdP" kind="relationship" relationship="rootViewController" id="ENn-Ng-LFD"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asr-At-cGB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2890" y="860"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="sJ0-Np-djE">
+            <objects>
+                <viewController id="5nf-xu-Gfe" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wdr-lP-kC0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pn0-Bf-tWC">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="fIG-w2-B2y">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" image="chevron.backward" catalog="system" id="sGS-RV-Iij"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QqF-Cx-FEn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mah-6h-WlV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9fk-MW-4ci" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1854" y="1594"/>
+        </scene>
         <!--Browse-->
         <scene sceneID="kXb-nz-rLy">
             <objects>
-                <viewController id="iDY-w3-YdP" sceneMemberID="viewController">
+                <viewController id="iDY-w3-YdP" customClass="BrowseViewController" customModule="UniBid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0B8-Pe-u3V">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -519,43 +549,49 @@
                                 <rect key="frame" x="20" y="140" width="374" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ngh-Ae-g9o">
-                                    <size key="itemSize" width="181" height="238"/>
+                                    <size key="itemSize" width="166" height="197"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="YoP-xj-QDS">
-                                        <rect key="frame" x="0.0" y="0.0" width="181" height="238"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AuctionCard" id="YoP-xj-QDS" customClass="AuctionCardCell" customModule="UniBid" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="197"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ycx-yy-olh">
-                                            <rect key="frame" x="0.0" y="0.0" width="181" height="238"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="166" height="197"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="electric-kettle-500x500" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-PS-8nV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="202"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFe-oG-hzf">
-                                                    <rect key="frame" x="69" y="209" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFe-oG-hzf">
+                                                    <rect key="frame" x="69" y="168" width="42" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="r6l-y6-BjH"/>
+                                                        <constraint firstAttribute="height" constant="21" id="V3E-FO-4gJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T_5054781674467_T1" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-PS-8nV">
+                                                    <rect key="frame" x="33" y="0.0" width="100" height="162"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="AuctionCard"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Meq-PS-8nV" firstAttribute="centerX" secondItem="AFe-oG-hzf" secondAttribute="centerX" id="Qlr-8L-ILj"/>
-                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="leading" secondItem="ycx-yy-olh" secondAttribute="leading" constant="69" id="Qye-hK-Auc"/>
-                                                <constraint firstItem="Meq-PS-8nV" firstAttribute="leading" secondItem="ycx-yy-olh" secondAttribute="leading" id="Se3-cO-CBd"/>
-                                                <constraint firstItem="Meq-PS-8nV" firstAttribute="top" secondItem="ycx-yy-olh" secondAttribute="top" id="Vo5-Yg-9Pz"/>
-                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="top" secondItem="Meq-PS-8nV" secondAttribute="bottom" constant="7" id="ZFH-mJ-rFg"/>
-                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="centerX" secondItem="ycx-yy-olh" secondAttribute="centerX" id="hvl-uO-JkQ"/>
-                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="bottom" secondItem="ycx-yy-olh" secondAttribute="bottomMargin" id="lD8-Ij-uff"/>
+                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="leading" secondItem="ycx-yy-olh" secondAttribute="leading" constant="69" id="2qS-Bn-wx8"/>
+                                                <constraint firstItem="Meq-PS-8nV" firstAttribute="leading" secondItem="ycx-yy-olh" secondAttribute="leading" constant="33" id="6wB-is-uOF"/>
+                                                <constraint firstItem="Meq-PS-8nV" firstAttribute="top" secondItem="ycx-yy-olh" secondAttribute="top" id="Ab3-sL-QNE"/>
+                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="bottom" secondItem="ycx-yy-olh" secondAttribute="bottomMargin" id="FDu-30-fRo"/>
+                                                <constraint firstItem="AFe-oG-hzf" firstAttribute="top" secondItem="Meq-PS-8nV" secondAttribute="bottom" constant="6" id="r8D-hc-r3A"/>
+                                                <constraint firstItem="Meq-PS-8nV" firstAttribute="centerX" secondItem="ycx-yy-olh" secondAttribute="centerX" id="wgV-9r-ydG"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="181" height="238"/>
+                                        <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                        <size key="customSize" width="166" height="197"/>
+                                        <connections>
+                                            <outlet property="auctionName" destination="AFe-oG-hzf" id="qoK-LO-gpF"/>
+                                            <outlet property="imageView" destination="Meq-PS-8nV" id="Yyk-if-cKR"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -563,13 +599,13 @@
                         <viewLayoutGuide key="safeArea" id="bVw-Dm-eW2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kJA-QT-aDY" firstAttribute="leading" secondItem="0B8-Pe-u3V" secondAttribute="leadingMargin" id="3I6-Hm-RZc"/>
-                            <constraint firstItem="GsG-sP-lhz" firstAttribute="bottom" secondItem="bVw-Dm-eW2" secondAttribute="bottom" id="5w0-W8-H5J"/>
-                            <constraint firstItem="kJA-QT-aDY" firstAttribute="leading" secondItem="GsG-sP-lhz" secondAttribute="leading" id="7L8-7F-bci"/>
-                            <constraint firstItem="GsG-sP-lhz" firstAttribute="top" secondItem="kJA-QT-aDY" secondAttribute="bottom" constant="8" id="DOn-0N-nbT"/>
-                            <constraint firstItem="kJA-QT-aDY" firstAttribute="top" secondItem="bVw-Dm-eW2" secondAttribute="top" constant="10" id="Vz1-QH-dbe"/>
-                            <constraint firstItem="kJA-QT-aDY" firstAttribute="trailing" secondItem="0B8-Pe-u3V" secondAttribute="trailingMargin" id="h40-gH-pAE"/>
-                            <constraint firstItem="kJA-QT-aDY" firstAttribute="trailing" secondItem="GsG-sP-lhz" secondAttribute="trailing" id="rju-Zb-Fv5"/>
+                            <constraint firstItem="GsG-sP-lhz" firstAttribute="top" secondItem="kJA-QT-aDY" secondAttribute="bottom" constant="8" id="5Hp-eF-oG0"/>
+                            <constraint firstItem="GsG-sP-lhz" firstAttribute="bottom" secondItem="bVw-Dm-eW2" secondAttribute="bottom" id="FnU-yR-FXX"/>
+                            <constraint firstItem="kJA-QT-aDY" firstAttribute="trailing" secondItem="GsG-sP-lhz" secondAttribute="trailing" id="NYb-mJ-nXT"/>
+                            <constraint firstItem="kJA-QT-aDY" firstAttribute="leading" secondItem="0B8-Pe-u3V" secondAttribute="leadingMargin" id="c7p-wr-8vd"/>
+                            <constraint firstItem="kJA-QT-aDY" firstAttribute="leading" secondItem="GsG-sP-lhz" secondAttribute="leading" id="cRz-8C-kul"/>
+                            <constraint firstItem="kJA-QT-aDY" firstAttribute="trailing" secondItem="0B8-Pe-u3V" secondAttribute="trailingMargin" id="feb-NR-aip"/>
+                            <constraint firstItem="kJA-QT-aDY" firstAttribute="top" secondItem="bVw-Dm-eW2" secondAttribute="top" constant="10" id="uBP-CU-wZn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Browse" id="t1p-rT-2d8">
@@ -577,6 +613,10 @@
                             <color key="tintColor" systemColor="systemRedColor"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="GsG-sP-lhz" id="3zV-NP-Vtp"/>
+                        <segue destination="5nf-xu-Gfe" kind="presentation" identifier="toAuctionView" modalPresentationStyle="fullScreen" id="4qf-QM-OEe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xz6-AB-fds" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -734,14 +774,18 @@
         <segue reference="OAd-fB-FYt"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="T_5054781674467_T1" width="256" height="256"/>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="cross.circle" catalog="system" width="128" height="121"/>
-        <image name="electric-kettle-500x500" width="500" height="500"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
