@@ -1,0 +1,6 @@
+framework module Pods_UniBid {
+  umbrella header "Pods-UniBid-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -10,6 +10,7 @@
 		3E9A1C79263AC83C0030D6A7 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A1C78263AC83C0030D6A7 /* BrowseViewController.swift */; };
 		3E9A1C7D263ACAB50030D6A7 /* AuctionCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A1C7C263ACAB50030D6A7 /* AuctionCardCell.swift */; };
 		3E9A1C81263B36F80030D6A7 /* MyListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A1C80263B36F80030D6A7 /* MyListingsViewController.swift */; };
+		592D95D6AD544BA24B25DDE6 /* Pods_UniBid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA243D08835BDAABED005E89 /* Pods_UniBid.framework */; };
 		8D0EB06D262030D900F26B35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB06C262030D900F26B35 /* AppDelegate.swift */; };
 		8D0EB06F262030D900F26B35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB06E262030D900F26B35 /* SceneDelegate.swift */; };
 		8D0EB071262030D900F26B35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB070262030D900F26B35 /* ViewController.swift */; };
@@ -40,6 +41,9 @@
 		8D0EB087262037B300F26B35 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		8D0EB08B262037D800F26B35 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8D62A9532631DEB4009CB506 /* addAuctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAuctionView.swift; sourceTree = "<group>"; };
+		AA243D08835BDAABED005E89 /* Pods_UniBid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UniBid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAEFCD84891FF34CF3275162 /* Pods-UniBid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniBid.debug.xcconfig"; path = "Target Support Files/Pods-UniBid/Pods-UniBid.debug.xcconfig"; sourceTree = "<group>"; };
+		E3CA6137A4500F7457E1E11A /* Pods-UniBid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniBid.release.xcconfig"; path = "Target Support Files/Pods-UniBid/Pods-UniBid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,17 +51,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				592D95D6AD544BA24B25DDE6 /* Pods_UniBid.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08DB8B2CF68BF5EEDFA98550 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CAEFCD84891FF34CF3275162 /* Pods-UniBid.debug.xcconfig */,
+				E3CA6137A4500F7457E1E11A /* Pods-UniBid.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5C1BA611492BE3378A544E3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA243D08835BDAABED005E89 /* Pods_UniBid.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8D0EB060262030D900F26B35 = {
 			isa = PBXGroup;
 			children = (
 				8D0EB06B262030D900F26B35 /* UniBid */,
 				8D0EB06A262030D900F26B35 /* Products */,
+				08DB8B2CF68BF5EEDFA98550 /* Pods */,
+				5C1BA611492BE3378A544E3F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,9 +123,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D0EB080262030D900F26B35 /* Build configuration list for PBXNativeTarget "UniBid" */;
 			buildPhases = (
+				F4151D268AA21BE96E57D5AB /* [CP] Check Pods Manifest.lock */,
 				8D0EB065262030D900F26B35 /* Sources */,
 				8D0EB066262030D900F26B35 /* Frameworks */,
 				8D0EB067262030D900F26B35 /* Resources */,
+				604EF936DB0440D18A239630 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,6 +182,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		604EF936DB0440D18A239630 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UniBid/Pods-UniBid-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UniBid/Pods-UniBid-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UniBid/Pods-UniBid-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4151D268AA21BE96E57D5AB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UniBid-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D0EB065262030D900F26B35 /* Sources */ = {
@@ -315,6 +384,7 @@
 		};
 		8D0EB081262030D900F26B35 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAEFCD84891FF34CF3275162 /* Pods-UniBid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -333,6 +403,7 @@
 		};
 		8D0EB082262030D900F26B35 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3CA6137A4500F7457E1E11A /* Pods-UniBid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
