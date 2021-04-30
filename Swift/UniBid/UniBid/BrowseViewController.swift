@@ -11,6 +11,17 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let URLSesh = "https://student.csc.liv.ac.uk/~sglbowma/api/appApi.php"
+        guard let url = URL(string: URLSesh) else {return}
+        
+        URLSession.shared.dataTask(with: url) { data, response, err in
+            guard let data = data else {return}
+            
+            let dataAsString = String(data: data, encoding: .utf8)
+            
+            print(dataAsString!)
+        }.resume()
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
