@@ -4,4 +4,4 @@ Click projects to see the current to do list. Feel free to add any. When you sta
 
 The linux server is set up with a dummy site, see the link below. This will be used to display our website.
 
-https://student.csc.liv.ac.uk/~sgdcart2/
+https://student.csc.liv.ac.uk/~sgcdeega/
