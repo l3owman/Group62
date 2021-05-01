@@ -20,9 +20,19 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
             
             let dataAsString = String(data: data, encoding: .utf8)
             
-            print(dataAsString!)
+            //print(dataAsString!)
+            print(type(of: dataAsString))
         }.resume()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden=false
+    }
+    
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }

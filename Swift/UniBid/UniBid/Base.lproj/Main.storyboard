@@ -505,10 +505,10 @@
             </objects>
             <point key="canvasLocation" x="2890" y="860"/>
         </scene>
-        <!--View Controller-->
+        <!--Listing InfoVC-->
         <scene sceneID="sJ0-Np-djE">
             <objects>
-                <viewController id="5nf-xu-Gfe" sceneMemberID="viewController">
+                <viewController id="5nf-xu-Gfe" customClass="ListingInfoVC" customModule="UniBid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wdr-lP-kC0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -518,24 +518,80 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="fIG-w2-B2y">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" image="chevron.backward" catalog="system" id="sGS-RV-Iij"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Back" image="chevron.backward" catalog="system" id="TeR-D1-Sap">
+                                            <connections>
+                                                <action selector="backBtn:" destination="5nf-xu-Gfe" id="P7e-ED-lr5"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bids start from:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZ8-rT-zUz">
+                                <rect key="frame" x="20" y="588" width="169" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FGt-8a-H9g">
+                                <rect key="frame" x="20" y="617" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS5-zH-o5b">
+                                <rect key="frame" x="125" y="621" width="64" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Place Bid"/>
+                                <connections>
+                                    <action selector="placeBidBtn:" destination="5nf-xu-Gfe" eventType="touchUpInside" id="W8s-QH-lSt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Buy Now Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqw-1b-COO">
+                                <rect key="frame" x="263" y="588" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFq-0b-x0U">
+                                <rect key="frame" x="333" y="621" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Buy Now"/>
+                                <connections>
+                                    <action selector="buyNowBtn:" destination="5nf-xu-Gfe" eventType="touchUpInside" id="uGf-9N-NIR"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-w8-WX7">
+                                <rect key="frame" x="20" y="371" width="374" height="209"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QqF-Cx-FEn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="mah-6h-WlV"/>
+                    <connections>
+                        <outlet property="bidsStartLabel" destination="pZ8-rT-zUz" id="2j7-bu-3qC"/>
+                        <outlet property="buyNowLabel" destination="gqw-1b-COO" id="0Z3-58-1b8"/>
+                        <outlet property="descriptionFIeld" destination="Ran-w8-WX7" id="kFU-i7-yBn"/>
+                        <outlet property="navigationBar" destination="Pn0-Bf-tWC" id="7H8-JE-K9n"/>
+                        <outlet property="placeBidField" destination="FGt-8a-H9g" id="Ez2-9d-RTg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9fk-MW-4ci" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="1594"/>
+            <point key="canvasLocation" x="2889.8550724637685" y="2367.1875"/>
         </scene>
         <!--Browse-->
         <scene sceneID="kXb-nz-rLy">
             <objects>
-                <viewController id="iDY-w3-YdP" customClass="BrowseViewController" customModule="UniBid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BrowseViewController" id="iDY-w3-YdP" customClass="BrowseViewController" customModule="UniBid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0B8-Pe-u3V">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -770,8 +826,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="F1w-9c-Kjk"/>
-        <segue reference="OAd-fB-FYt"/>
+        <segue reference="YJH-7Z-PIa"/>
+        <segue reference="Vti-3e-4eu"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="T_5054781674467_T1" width="256" height="256"/>

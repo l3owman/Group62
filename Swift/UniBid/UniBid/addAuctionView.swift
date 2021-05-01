@@ -143,10 +143,10 @@ class addAuctionView: UIViewController, UITextFieldDelegate, UITextViewDelegate,
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == pickerViewCategory {
-            print(1)
+            //print(1)
             return categories.count
         } else {
-            print(3)
+            //print(3)
             return durations.count
         }
     }
