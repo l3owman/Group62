@@ -59,6 +59,44 @@ class RegisterView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     
     // Actions
     @IBAction func registerButton(_ sender: Any) {
+        let email = String(emailAddress.text!)
+        let userPassword = String(password.text!)
+        let userForename = String(forename.text!)
+        let userSurname = String(surname.text!)
+        let userPasswordDup = String(confirmPassword.text!)
+        let userAddress = String(address.text!)
+        let userPostcode = String(postcode.text!)
+        let userUniversity = String(institution.text!)
+        let parameters = [ "forename":userForename, "surname":userSurname,
+                           "email": email, "password": userPassword,
+                           "password_dup": userPasswordDup,"address": userAddress,
+                           "postcode": userPostcode, "university": userUniversity]
+        
+        let url = URL(string: "https://student.csc.liv.ac.uk/~sglbowma/api/register.php")!
+                var request = URLRequest(url: url)
+                request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                request.httpMethod = "POST"
+                request.httpBody = parameters.percentEncoded()
+
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    guard let data = data,
+                        let response = response as? HTTPURLResponse,
+                        error == nil else {                                              // check for fundamental networking error
+                        print("error", error ?? "Unknown error")
+                        return
+                    }
+
+                    guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                        print("statusCode should be 2xx, but is (response.statusCode)")
+                        print("response = \(response)")
+                        return
+                    }
+
+                    let responseString = String(data: data, encoding: .utf8)
+                    print("responseString = \(responseString)")
+                }
+
+                task.resume()
     }
     
     
