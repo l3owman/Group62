@@ -25,6 +25,8 @@ class RegisterView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         pickerView.delegate = self
         pickerView.dataSource = self
         institution.inputView = pickerView
+        password.isSecureTextEntry = true
+        confirmPassword.isSecureTextEntry = true
         
         
         
@@ -67,6 +69,71 @@ class RegisterView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         let userAddress = String(address.text!)
         let userPostcode = String(postcode.text!)
         let userUniversity = String(institution.text!)
+        
+        //Validations
+        var alertMessageTitle = ""
+        var alertMessage = ""
+        var responseString = ""
+        
+        
+        if(email == "") {
+            alertMessageTitle = "Email is a mandatory field"
+            alertMessage = "Please enter a valid .ac.uk email adress."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userPassword == "") {
+            alertMessageTitle = "Password is a mandatory field"
+            alertMessage = "Please enter a strong password for your account."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userPasswordDup == ""){
+            alertMessageTitle = "Confrim Password is a mandatory field"
+            alertMessage = "Please confirm your password."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userForename == "") {
+            alertMessageTitle = "Forename is a mandatory field"
+            alertMessage = "Please enter your forename, so we can present you in the app"
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userSurname == "") {
+            alertMessageTitle = "Surname is a mandatory field"
+            alertMessage = "Please enter your Surname, so we can present you in the app"
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userAddress == "") {
+            alertMessageTitle = "Address is a mandatory field"
+            alertMessage = "Please enter your current valid address."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userPostcode == "") {
+            alertMessageTitle = "Postcode is a mandatory field"
+            alertMessage = "Please enter your current valid postal code."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userUniversity == "") {
+            alertMessageTitle = "University is a mandatory field"
+            alertMessage = "Please choose your current or past university / institution"
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if (userPassword != userPasswordDup) {
+            alertMessageTitle = "Passwords does not match."
+            alertMessage = "Please make sure that password fields contain the same passoword."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(email.hasSuffix("ac.uk") == false) {
+            alertMessageTitle = "Not a ac.uk email address"
+            alertMessage = "Please use a valid .ac.uk email address."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userPassword.count < 8) {
+            alertMessageTitle = "Password is too shot"
+            alertMessage = "Please use at least 8 characters for your password."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        
+        else {
+        
         let parameters = [ "forename":userForename, "surname":userSurname,
                            "email": email, "password": userPassword,
                            "password_dup": userPasswordDup,"address": userAddress,
@@ -92,11 +159,20 @@ class RegisterView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
                         return
                     }
 
-                    let responseString = String(data: data, encoding: .utf8)
+                    responseString = String(data: data, encoding: .utf8)!
                     print("responseString = \(responseString)")
+                    if(responseString == "Email in Use"){
+                        //print(1)
+                        alertMessageTitle = "Email in use"
+                        alertMessage = "This email has already been registered."
+                    } else {
+                        alertMessageTitle = "Successful Registartion"
+                        alertMessage = "You have successfully created your account at UniBid"
+                    }
+                    self.showAlert(alertMessageTitle, alertMessage)
                 }
-
-                task.resume()
+            task.resume()
+        }
     }
     
     
@@ -130,6 +206,29 @@ class RegisterView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         institution.resignFirstResponder()
     }
     
+    
+    func showAlert(_ messageTitle: String, _ message: String) {
+        DispatchQueue.main.async {
+            //Create an alert
+            let alert = UIAlertController(title: messageTitle, message: message, preferredStyle: .alert)
+            //Add actions
+            if(messageTitle == "Successful Registartion"){
+                let alertAction = UIAlertAction(title: "Login", style: .cancel, handler: {(action) -> Void in
+                    //Call the MainViewController
+                    let vc = self.storyboard?.instantiateViewController(identifier: "LogInViewController") as! LogInView
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                })
+                
+                alert.addAction(alertAction)
+            } else {
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            }
+
+            //Present alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     
     

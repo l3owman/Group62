@@ -16,6 +16,7 @@ class LogInView: UIViewController, UITextFieldDelegate {
         
         emailAddress.delegate = self
         password.delegate = self
+        password.isSecureTextEntry = true
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
                 view.addGestureRecognizer(tap) // Add gesture recognizer to background view
@@ -66,6 +67,8 @@ class LogInView: UIViewController, UITextFieldDelegate {
                     print("responseString = \(responseString)")
                     if(responseString != ""){
                         self.executeSegue()
+                    } else {
+                        self.showAlert()
                     }
                 }
 
@@ -86,7 +89,14 @@ class LogInView: UIViewController, UITextFieldDelegate {
            // UI work here
             self.performSegue(withIdentifier: "toBrowsePage", sender: nil)
         }
-        
+    }
+    
+    func showAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Wrong credentials", message: "Wrong email or password.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     /*
