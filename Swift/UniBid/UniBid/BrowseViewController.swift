@@ -6,6 +6,7 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var collectionView: UICollectionView!
     
     var listings: [[String:String?]]?
+    var selectedListing: [String:String?] = [:]
     var listingCount: Int = 0
     override func viewDidLoad() {
         // Do any additional setup after loading the view.
@@ -63,7 +64,14 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedListing = listings![indexPath.item]
         performSegue(withIdentifier: "toAuctionView", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toAuctionView"){
+                let vc = segue.destination as! ListingInfoVC
+                vc.selectedListing = self.selectedListing
+        }
     }
     /*
     // MARK: - Navigation

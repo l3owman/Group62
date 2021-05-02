@@ -10,7 +10,7 @@ import UIKit
 class ListingInfoVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     
-    
+    var selectedListing: [String:String?] = [:]
     private var collectionView: UICollectionView!
     private let identifier: String = "identifier"
     private var images: [UIImage] = []
@@ -18,7 +18,18 @@ class ListingInfoVC: UIViewController, UICollectionViewDataSource, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.topItem?.title = "aaa"
+        if let entryy = selectedListing["listing_name"] {
+            navigationBar.topItem?.title = entryy
+        }
+        if let entryy = selectedListing["description"] {
+            descriptionFIeld.text = "Listing description:\n" + entryy!
+        }
+        if let entryy = selectedListing["start_price"] {
+            bidsStartLabel.text = "Bids start from: " + entryy! + "£"
+        }
+        if let entryy = selectedListing["buy_now_price"] {
+            buyNowLabel.text = "Buy Now Price: " + entryy! + "£"
+        }
         //navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: "toBrowseViewController")
         let backButton = UIBarButtonItem()
          backButton.title = "New Back Button Text"
