@@ -6,6 +6,8 @@
 //
 
 import UIKit
+let forename: String = ""
+let surname: String = ""
 
 class LogInView: UIViewController, UITextFieldDelegate {
 
@@ -80,6 +82,8 @@ class LogInView: UIViewController, UITextFieldDelegate {
                     let responseString = String(data: data, encoding: .utf8)
                     print("responseString = \(responseString)")
                     if(responseString != ""){
+                        let result = convertStringToDictionary(text: responseString!)
+                        print(result)
                         self.executeSegue()
                     } else {
                         self.showAlert("Wrong credentials", "Wrong email or password.")
@@ -147,5 +151,15 @@ extension CharacterSet {
         return allowed
     }()
 }
-
+func convertStringToDictionary(text: String) -> [String:AnyObject]? {
+   if let data = text.data(using: .utf8) {
+       do {
+           let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
+           return json
+       } catch {
+           print("Something went wrong")
+       }
+   }
+   return nil
+}
 

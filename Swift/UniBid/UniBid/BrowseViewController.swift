@@ -35,12 +35,6 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 for i in 0..<(self.listings!.count-1){
                     
                         self.listingCount = self.listingCount + 1
-                    
-                    
-                    for (key,value) in self.listings![i]{
-                   // print("key=\(key), value=\(String(describing: value))")
-                       // print(type(of: self.listings))
-                }
                 }
                 
             }
