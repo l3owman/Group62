@@ -17,8 +17,8 @@ class AccountVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text? = "Hello, " + "Mario Yordanov"
-        emailLabel.text? = "mario.yordanov@livuni.ac.uk"
+        nameLabel.text? = forename + " " + surname
+        emailLabel.text? = userEmail
         //self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         sections.append(tableSections.init(section: "Account", options: ["Edit Profile", "Log Out"]))

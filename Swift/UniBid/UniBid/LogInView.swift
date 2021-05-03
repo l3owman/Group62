@@ -6,8 +6,9 @@
 //
 
 import UIKit
-let forename: String = ""
-let surname: String = ""
+var forename: String = ""
+var surname: String = ""
+var userEmail: String = ""
 
 class LogInView: UIViewController, UITextFieldDelegate {
 
@@ -83,8 +84,15 @@ class LogInView: UIViewController, UITextFieldDelegate {
                     print("responseString = \(responseString)")
                     if(responseString != ""){
                         let result = convertStringToDictionary(text: responseString!)
-                        print(result)
-                        
+                        if let surnameUser = result!["surname"]{
+                            surname = surnameUser as! String
+                        }
+                        if let forenameUser = result!["forename"]{
+                            forename = forenameUser as! String
+                        }
+                        if let emailUser = result!["email"]{
+                            userEmail = emailUser as! String
+                        }
                         self.executeSegue()
                     } else {
                         self.showAlert("Wrong credentials", "Wrong email or password.")
