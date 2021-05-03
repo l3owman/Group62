@@ -43,6 +43,8 @@
                     echo $_SESSION["university"];
                   ?></h7>
                 <div class="border-top my-4"></div>
+                <h7 class="text-center">Wallet Balance: &#163;<?php echo ($_SESSION["walletAmount"]/100);?></h7>
+                <div class="border-top my-4"></div>
               <?php endif; ?>
               <li class="nav-item">
                 <a class="nav-link" href="index.html">
@@ -57,7 +59,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wonauctions.php">
                   <span data-feather="shopping-cart"></span>
                   Won Auctions
                 </a>
@@ -69,13 +71,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wishlist.php">
                   <span data-feather="bar-chart-2"></span>
                   Wishlist
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="account.php">
                   <span data-feather="users"></span>
                   Account
                 </a>
@@ -95,7 +97,7 @@
                 <a class="nav-link" href="mylistings.php">Active Listings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Previous Listings</a>
+                <a class="nav-link" href="previous_listings.php">Previous Listings</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="create_listing.php">Create Listing</a>
@@ -117,8 +119,13 @@
                     <label class="input-group-text" for="listingCategory">Category</label>
                   </div>
                   <select class="custom-select" name="listingCategory" id="listingCategory">
-                    <option value="0">Please Select a Category</option>
-
+                    <option selected="true" disabled="disabled">Please Select a Category</option>
+                    <option value="1">Kitchen</option>
+                    <option value="2">Bedroom</option>
+                    <option value="3">Outdoors</option>
+                    <option value="4">Bathroom</option>
+                    <option value="5">Books & Stationery</option>
+                    <option value="6">Miscellaneous</option>
                   </select>
                 </div>
               <div class="form-row">
@@ -156,6 +163,7 @@
                     <label class="input-group-text" for="listingDuration">Duration</label>
                   </div>
                   <select class="custom-select" name="listingDuration" id="listingDuration">
+                    <option selected="true" disabled="disabled">Please Select a Duration</option>
                     <option value="5">Quick - 5 Hours</option>
                     <option value="24">Short - 24 Hours</option>
                     <option value="72">Medium - 3 Days</option>
@@ -186,7 +194,7 @@
 
          </div>
          <div class="modal fade" id="priceHelp" tabindex="-1" role="dialog" aria-labelledby="priceHelp" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="priceHelpTitle">Price Helper</h5>
@@ -248,7 +256,6 @@
                     }else{
                       document.getElementById('imageCount').innerHTML += "You have selected "+files.length+" images.";
                     }
-
                     return true;
                 }
             });
@@ -265,11 +272,7 @@
               document.getElementById('listingBuyPrice').disabled=true;
            }
          </script>
-         <script src="../assets/vendor/dropzone/js/dropzone.min.js"></script>
-
-<!--Dropzone init-->
-
-<script src="../assets/js/demo/dropzone/dropzone.min.js"></script>
+         
 
         <script>
           feather.replace()

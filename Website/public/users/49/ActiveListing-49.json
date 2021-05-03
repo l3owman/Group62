@@ -1,0 +1,20 @@
+[
+    {
+        "listing_id": "116",
+        "category_id": null,
+        "status_id": "1",
+        "seller_id": "49",
+        "buyer_id": null,
+        "complaint_id": null,
+        "listing_name": "New Kettle",
+        "description": "",
+        "images": "users\/49\/listings\/116\/images\/",
+        "start_time": "2021-04-22 16:08:10",
+        "end_time": "2021-04-22 21:08:10",
+        "num_of_bids": "0",
+        "bid_highest": "0",
+        "buy_now": "0",
+        "buy_now_price": "0",
+        "start_price": "100"
+    }
+]

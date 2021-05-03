@@ -26,9 +26,9 @@
     $buy_now_price = mysqli_real_escape_string($conn, $_POST['listingBuyPrice']);
     $bid_price = mysqli_real_escape_string($conn, $_POST['listingBidPrice']);
     $listingDuration = mysqli_real_escape_string($conn, $_POST['listingDuration']);
-    $oldDate = date('y-m-d h:i:s');
-    $bstDate = date('y-m-d h:i:s', strtotime($oldDate. " +1 hours"));
-    $newDate = date('y-m-d h:i:s', strtotime($newDate. " + {$listingDuration} hours"));
+    $oldDate = date('y-m-d H:i:s');
+    $bstDate = date('y-m-d H:i:s', strtotime($oldDate. " +1 hours"));
+    $newDate = date('y-m-d H:i:s', strtotime($bstDate. " + {$listingDuration} hours"));
 
 
     if(isset($_FILES["photo"])){
@@ -63,14 +63,14 @@
         // Verify MYME type of the file
 
 
-            $sql = "INSERT INTO Listing (seller_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price) VALUES ('$seller_id', '$listing_name', '$description', '$filename', '$bstDate', '$newDate', 0, 0, '$bool', '$buyNow', '$bid_price')";
+            $sql = "INSERT INTO Listing (status_id, seller_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price) VALUES (1, '$seller_id', '$listing_name', '$description', '$filename', '$bstDate', '$newDate', 0, 0, '$bool', '$buyNow', '$bid_price')";
             if ($conn->query($sql) === TRUE) {
               $selectSQL = "SELECT MAX(listing_id) AS max_listing_id FROM Listing WHERE seller_id='$seller_id' LIMIT 1";
               $select = mysqli_query($conn, $selectSQL);
               $row = mysqli_fetch_assoc($select);
 
 
-              $filepath = "users/$seller_id/listings/$row[max_listing_id]/images/$filename";
+              $filepath = "users/$seller_id/listings/$row[max_listing_id]/images/";
 
               $sqlUpdate = "UPDATE Listing SET images = '$filepath' WHERE images = '$filename'";
 
@@ -84,7 +84,8 @@
 
                       for($i=0;$i<$countfiles;$i++){
                         $filename = $_FILES["photo"]["name"][$i];
-                        $target_file = "users/$seller_id/listings/$row[max_listing_id]/images/$filename";
+                        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                        $target_file = "users/$seller_id/listings/$row[max_listing_id]/images/image_$i.$ext";
 
                       move_uploaded_file($_FILES["photo"]["tmp_name"][$i], $target_file);
                     }

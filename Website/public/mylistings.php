@@ -1,31 +1,31 @@
 <?php
   session_start();
   include('config.php');
-
+  
   $sql = "SELECT * FROM Listing WHERE status_id='1' AND seller_id={$_SESSION['u_id']}";
   $result = mysqli_query($conn, $sql);
-
+  
   $listing_data = array();
     while($row =mysqli_fetch_assoc($result))
     {
         $listing_data[] = $row;
     }
-
+   
    $json = json_encode($listing_data, JSON_PRETTY_PRINT);
-
+   
    $file_name = 'ActiveListing-'. ($_SESSION['u_id']) . '.json';
    file_put_contents("users/{$_SESSION['u_id']}/$file_name", $json);
-
+   
    $decoded_array = json_decode($json, true);
 ?>
 
 <?php function createCard(array $jsonArr) { ?>
-        <?php
+        <?php 
         $firstFile = scandir($jsonArr["images"], SCANDIR_SORT_ASCENDING)[2];
         $date = date_create($jsonArr["end_time"]);
         $formatedDate = date_format($date,"l jS \of F Y H:i");
          ?>
-
+        
          <div class="card w-100 align-item-center mb-4" style="max-height: 25rem;">
              <div class="card-header w-100">
                 <h5><?= $jsonArr["listing_name"] ?></h5>
@@ -38,11 +38,11 @@
                     <div class="card-block px-2 col-9">
                         <h5 class="mb-4 mt-2">Listing Description:</h5>
                         <p class="card-text"><?= $jsonArr["description"] ?></p>
-                    </div>
+                    </div>  
                   </div>
                   <div class="card-block text-center px-2">
                     <h5 class="mb-4 mt-2">Listing Details:</h5>
-                          <p class="card-text">Highest Bid: &#163;<?= $jsonArr["bid_highest"] ?>  </p>
+                          <p class="card-text">Highest Bid: &#163;<?= $jsonArr["bid_highest"]/100 ?>  </p>
                           <p class="card-text">Number of Bids: <?= $jsonArr["num_of_bids"] ?> </p>
                           <hr>
                           <a href="#" class="btn btn-primary">Edit Listing</a>
@@ -51,13 +51,13 @@
                   </div>
                   <div class="card-footer   text-muted">
                     <div class="text-left" id="demo">
-
-
+   
+        
                       Active Until: <?=  $formatedDate ?>
                     </div>
                   </div>
          </div>
-
+        
 
 <?php } ?>
 
@@ -97,6 +97,8 @@
                     echo $_SESSION["university"];
                   ?></h7>
                 <div class="border-top my-4"></div>
+                <h7 class="text-center">Wallet Balance: &#163;<?php echo ($_SESSION["walletAmount"]/100);?></h7>
+                <div class="border-top my-4"></div>
               <?php endif; ?>
               <li class="nav-item">
                 <a class="nav-link" href="index.html">
@@ -111,7 +113,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wonauctions.php">
                   <span data-feather="shopping-cart"></span>
                   Won Auctions
                 </a>
@@ -123,13 +125,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wishlist.php">
                   <span data-feather="bar-chart-2"></span>
                   Wishlist
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="account.php">
                   <span data-feather="users"></span>
                   Account
                 </a>
@@ -155,7 +157,7 @@
                 <a class="nav-link" href="create_listing.php">Create Listing</a>
               </li>
             </ul>
-            <?php
+            <?php 
               foreach($decoded_array as $activeListing){
                 createCard($activeListing);
               }

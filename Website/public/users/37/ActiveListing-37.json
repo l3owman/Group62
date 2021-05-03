@@ -1,0 +1,20 @@
+[
+    {
+        "listing_id": "138",
+        "category_id": null,
+        "status_id": "1",
+        "seller_id": "37",
+        "buyer_id": "37",
+        "complaint_id": null,
+        "listing_name": "Kettle",
+        "description": "Test",
+        "images": "users\/37\/listings\/138\/images\/",
+        "start_time": "2021-05-03 11:17:57",
+        "end_time": "2021-05-03 16:17:57",
+        "num_of_bids": "1",
+        "bid_highest": "2000",
+        "buy_now": "0",
+        "buy_now_price": "0",
+        "start_price": "100"
+    }
+]

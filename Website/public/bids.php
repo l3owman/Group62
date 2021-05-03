@@ -37,6 +37,8 @@
                     echo $_SESSION["university"];
                   ?></h7>
                 <div class="border-top my-4"></div>
+                <h7 class="text-center">Wallet Balance: &#163;<?php echo ($_SESSION["walletAmount"]/100);?></h7>
+                <div class="border-top my-4"></div>
               <?php endif; ?>
               <li class="nav-item">
                 <a class="nav-link" href="index.html">
@@ -51,7 +53,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wonauctions.php">
                   <span data-feather="shopping-cart"></span>
                   Won Auctions
                 </a>
@@ -63,13 +65,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wishlist.php">
                   <span data-feather="bar-chart-2"></span>
                   Wishlist
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="account.php">
                   <span data-feather="users"></span>
                   Account
                 </a>
@@ -84,7 +86,7 @@
              <div class="btn-toolbar mb-2 mb-md-0">
              </div>
            </div>
-
+           
         <?php else: ?>
           <div class="container h-100">
               <div class="row align-items-center h-100">
@@ -105,6 +107,6 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
           feather.replace()
-        </script>
+        </script>   
       </body>
 </html>

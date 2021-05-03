@@ -1,0 +1,20 @@
+[
+    {
+        "listing_id": "119",
+        "category_id": null,
+        "status_id": "1",
+        "seller_id": "33",
+        "buyer_id": null,
+        "complaint_id": null,
+        "listing_name": "Test Kettle",
+        "description": "lol",
+        "images": "users\/33\/listings\/119\/images\/",
+        "start_time": "2021-04-26 13:59:57",
+        "end_time": "2021-04-26 18:59:57",
+        "num_of_bids": "0",
+        "bid_highest": "0",
+        "buy_now": "0",
+        "buy_now_price": "0",
+        "start_price": "1"
+    }
+]

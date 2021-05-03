@@ -1,0 +1,38 @@
+[
+    {
+        "listing_id": "107",
+        "category_id": null,
+        "status_id": "1",
+        "seller_id": "46",
+        "buyer_id": null,
+        "complaint_id": null,
+        "listing_name": "Testing",
+        "description": "This is a test",
+        "images": "users\/46\/listings\/107\/images\/",
+        "start_time": "2021-04-18 16:55:51",
+        "end_time": "2021-04-18 21:55:51",
+        "num_of_bids": "0",
+        "bid_highest": "0",
+        "buy_now": "1",
+        "buy_now_price": "150",
+        "start_price": "100"
+    },
+    {
+        "listing_id": "108",
+        "category_id": null,
+        "status_id": "1",
+        "seller_id": "46",
+        "buyer_id": null,
+        "complaint_id": null,
+        "listing_name": "Example",
+        "description": "",
+        "images": "users\/46\/listings\/108\/images\/",
+        "start_time": "2021-04-18 16:56:36",
+        "end_time": "2021-04-19 16:56:36",
+        "num_of_bids": "0",
+        "bid_highest": "0",
+        "buy_now": "0",
+        "buy_now_price": "0",
+        "start_price": "100"
+    }
+]

@@ -1,40 +1,44 @@
 <?php
   session_start();
+  
+  
   include('config.php');
-
-  $sql = "SELECT * FROM Listing";
+  
+  $sql = "SELECT * FROM Listing WHERE status_id = 1";
   $result = mysqli_query($conn, $sql);
-
+  
   $listing_data = array();
     while($row =mysqli_fetch_assoc($result))
     {
         $listing_data[] = $row;
     }
-
+   
    $json = json_encode($listing_data, JSON_PRETTY_PRINT);
-
+   
    $file_name = date('d-m-y') . '.json';
    file_put_contents($file_name, $json);
-
+   
    $decoded_array = json_decode($json, true);
-
+   
 ?>
 
 <?php function createCard(array $jsonArr) { ?>
+        <?php $firstFile = scandir($jsonArr["images"], SCANDIR_SORT_ASCENDING)[2]; ?>
         <div class="card h-100 mb-3 mr-2" style="min-width: 15.3rem; max-width: 15.3rem; min-height: 31.5rem">
-            <img height="270" width="180" class="card-img-top" src="test.png">
+            <img height="270" width="180" class="card-img-top" src="<?= $jsonArr["images"] ?>/<?= $firstFile?>">
             <div class="card-body">
                 <h5 class="card-title" id="listing_title"><?= $jsonArr["listing_name"] ?> <?= $jsonArr["listing_id"] ?></h5>
                 <p class="card-text scrollable"><?= $jsonArr["description"] ?></p>
             </div>
             <div class="card-footer">
                   <div class="text-center">
-                    <a href="#" class="btn btn-primary">View Listing</a>
+                    <form method="post" action="viewlisting.php">
+                      <button type="submit" class="btn btn-primary" value='<?= $jsonArr["listing_id"] ?>' name='viewListing'>View Listing</button>
+                    </form>
                   </div>
                 </div>
-         </div>
+         </div> 
 <?php } ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -74,12 +78,14 @@
                 <h7 class="text-center"><?php
                     echo $_SESSION["university"];
                   ?></h7>
+                  <div class="border-top my-4"></div>
+                  <h7 class="text-center">Wallet Balance: &#163;<?php echo ($_SESSION["walletAmount"]/100);?></h7>
                 <div class="border-top my-4"></div>
               <?php endif; ?>
               <li class="nav-item">
                 <a class="nav-link active" href="index.html">
                   <span data-feather="home"></span>
-                  Browse <span class="sr-only">(current)</span>
+                  Browse <span class="sr-only"></span>
                 </a>
               </li>
               <li class="nav-item">
@@ -89,7 +95,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wonauctions.php">
                   <span data-feather="shopping-cart"></span>
                   Won Auctions
                 </a>
@@ -101,13 +107,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="wishlist.php">
                   <span data-feather="bar-chart-2"></span>
                   Wishlist
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="account.php">
                   <span data-feather="users"></span>
                   Account
                 </a>
@@ -121,31 +127,30 @@
             <div class="btn-toolbar mb-2 mb-md-0">
             </div>
           </div>
+         
           <div class="card-deck">
-            <?php
+            <?php 
               foreach($decoded_array as $listing){
                 createCard($listing);
               }
             ?>
           </div>
-
+ 
         </div>
         <script>
         $(document).ready(function(){
           $('#search').keyup(function (){
             $('.card').removeClass('d-none');
-            var filter = $(this).val();
+            var filter = $(this).val(); 
             $('.card-deck').find('.card .card-title:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
           });
         });
-
-
-          </script>
-
+        </script>
+        
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
           feather.replace()
-        </script>
-
+        </script>       
+  
       </body>
 </html>

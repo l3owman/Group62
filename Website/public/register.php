@@ -20,10 +20,10 @@
   //comment these two lines when code started working fine
     error_reporting(E_ALL);
     ini_set('display_errors',1);
-
+    
     $filename = 'universities.txt';
     $eachlines = file($filename, FILE_IGNORE_NEW_LINES);
-
+  
   ?>
   <body>
     <div class="login-form">
@@ -49,7 +49,7 @@
                     Please enter a surname.
                   </div>
                 </div>
-              </div>
+              </div>   
               <div class="form-group">
                   <label class="control-label" for="email">Email Address</label>
                   <input class="form-control" placeholder="Email" required="required" type="email" name="email" id="email">
@@ -110,7 +110,7 @@
             var element = document.getElementById("confirm_password");
             element.classList.remove("valid-feedback");
             element.classList.add("invalid-feedback");
-
+            
         else
             var element = document.getElementById("confirm_password");
             element.classList.remove("-feedback");
@@ -139,7 +139,7 @@
       });
     }, false);
   })();
-
+  
   </script>
   </body>
 </html>
