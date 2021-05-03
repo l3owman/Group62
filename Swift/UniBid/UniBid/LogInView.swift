@@ -84,6 +84,7 @@ class LogInView: UIViewController, UITextFieldDelegate {
                     if(responseString != ""){
                         let result = convertStringToDictionary(text: responseString!)
                         print(result)
+                        
                         self.executeSegue()
                     } else {
                         self.showAlert("Wrong credentials", "Wrong email or password.")
