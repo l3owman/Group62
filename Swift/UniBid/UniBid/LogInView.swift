@@ -38,11 +38,25 @@ class LogInView: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func logInButton(_ sender: Any) {
-        let email = String(emailAddress.text!)
-        let userPassword = String(password.text!)
+        
+        var email = String(emailAddress.text!)
+        var userPassword = String(password.text!)
+        var alertMessageTitle = ""
+        var alertMessage = ""
+        
+        if(email == "") {
+            alertMessageTitle = "Email is a mandatory field"
+            alertMessage = "Please enter a valid .ac.uk email adress."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(userPassword == "") {
+            alertMessageTitle = "Password is a mandatory field"
+            alertMessage = "Please enter your password."
+            showAlert(alertMessageTitle, alertMessage)
+        } else {
         
         let parameters = [ "email":email, "password":userPassword]
-        
+ 
         let url = URL(string: "https://student.csc.liv.ac.uk/~sglbowma/api/login.php")!
                 var request = URLRequest(url: url)
                 request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -68,11 +82,12 @@ class LogInView: UIViewController, UITextFieldDelegate {
                     if(responseString != ""){
                         self.executeSegue()
                     } else {
-                        self.showAlert()
+                        self.showAlert("Wrong credentials", "Wrong email or password.")
                     }
                 }
 
                 task.resume()
+        }
     }
     
     // Methods
@@ -91,9 +106,9 @@ class LogInView: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func showAlert() {
+    func showAlert(_ messageTitle: String, _ message: String) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Wrong credentials", message: "Wrong email or password.", preferredStyle: .alert)
+            let alert = UIAlertController(title: messageTitle, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }

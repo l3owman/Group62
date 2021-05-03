@@ -17,11 +17,11 @@
 		8D0EB074262030D900F26B35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D0EB072262030D900F26B35 /* Main.storyboard */; };
 		8D0EB077262030D900F26B35 /* UniBid.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB075262030D900F26B35 /* UniBid.xcdatamodeld */; };
 		8D0EB079262030D900F26B35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D0EB078262030D900F26B35 /* Assets.xcassets */; };
-		8D0EB07C262030D900F26B35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D0EB07A262030D900F26B35 /* LaunchScreen.storyboard */; };
 		8D0EB0852620378500F26B35 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB0842620378500F26B35 /* LogInView.swift */; };
 		8D0EB088262037B300F26B35 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB087262037B300F26B35 /* RegisterView.swift */; };
 		8D0EB08C262037D800F26B35 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0EB08B262037D800F26B35 /* HomeView.swift */; };
 		8D62A9542631DEB4009CB506 /* addAuctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D62A9532631DEB4009CB506 /* addAuctionView.swift */; };
+		8D9898F426403F7100303E39 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9898F326403F7100303E39 /* AccountVC.swift */; };
 		8DF6E23C263D94B2006C3394 /* ListingInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF6E23B263D94B2006C3394 /* ListingInfoVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,12 +36,12 @@
 		8D0EB073262030D900F26B35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D0EB076262030D900F26B35 /* UniBid.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UniBid.xcdatamodel; sourceTree = "<group>"; };
 		8D0EB078262030D900F26B35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8D0EB07B262030D900F26B35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D0EB07D262030D900F26B35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D0EB0842620378500F26B35 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		8D0EB087262037B300F26B35 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		8D0EB08B262037D800F26B35 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8D62A9532631DEB4009CB506 /* addAuctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAuctionView.swift; sourceTree = "<group>"; };
+		8D9898F326403F7100303E39 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		8DF6E23B263D94B2006C3394 /* ListingInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListingInfoVC.swift; path = ../ListingInfoVC.swift; sourceTree = "<group>"; };
 		AA243D08835BDAABED005E89 /* Pods_UniBid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UniBid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAEFCD84891FF34CF3275162 /* Pods-UniBid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniBid.debug.xcconfig"; path = "Target Support Files/Pods-UniBid/Pods-UniBid.debug.xcconfig"; sourceTree = "<group>"; };
@@ -107,13 +107,13 @@
 				8D0EB08B262037D800F26B35 /* HomeView.swift */,
 				8D62A9532631DEB4009CB506 /* addAuctionView.swift */,
 				8DF6E23B263D94B2006C3394 /* ListingInfoVC.swift */,
-				8D0EB072262030D900F26B35 /* Main.storyboard */,
-				8D0EB078262030D900F26B35 /* Assets.xcassets */,
-				8D0EB07A262030D900F26B35 /* LaunchScreen.storyboard */,
-				8D0EB07D262030D900F26B35 /* Info.plist */,
-				8D0EB075262030D900F26B35 /* UniBid.xcdatamodeld */,
 				3E9A1C78263AC83C0030D6A7 /* BrowseViewController.swift */,
 				3E9A1C80263B36F80030D6A7 /* MyListingsViewController.swift */,
+				8D9898F326403F7100303E39 /* AccountVC.swift */,
+				8D0EB072262030D900F26B35 /* Main.storyboard */,
+				8D0EB078262030D900F26B35 /* Assets.xcassets */,
+				8D0EB07D262030D900F26B35 /* Info.plist */,
+				8D0EB075262030D900F26B35 /* UniBid.xcdatamodeld */,
 			);
 			path = UniBid;
 			sourceTree = "<group>";
@@ -177,7 +177,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D0EB07C262030D900F26B35 /* LaunchScreen.storyboard in Resources */,
 				8D0EB079262030D900F26B35 /* Assets.xcassets in Resources */,
 				8D0EB074262030D900F26B35 /* Main.storyboard in Resources */,
 			);
@@ -239,6 +238,7 @@
 				8D0EB08C262037D800F26B35 /* HomeView.swift in Sources */,
 				8DF6E23C263D94B2006C3394 /* ListingInfoVC.swift in Sources */,
 				8D0EB071262030D900F26B35 /* ViewController.swift in Sources */,
+				8D9898F426403F7100303E39 /* AccountVC.swift in Sources */,
 				8D0EB06D262030D900F26B35 /* AppDelegate.swift in Sources */,
 				8D0EB088262037B300F26B35 /* RegisterView.swift in Sources */,
 				8D0EB077262030D900F26B35 /* UniBid.xcdatamodeld in Sources */,
@@ -256,14 +256,6 @@
 				8D0EB073262030D900F26B35 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		8D0EB07A262030D900F26B35 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D0EB07B262030D900F26B35 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
