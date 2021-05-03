@@ -1,7 +1,7 @@
 
 import UIKit
 
-class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
+class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -17,7 +17,7 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
     }
     override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
-        print(listingCount)
+        collectionView.register(AuctionCardCell.self, forCellWithReuseIdentifier: "AuctionCard")
         collectionView.delegate = self
         collectionView.dataSource = self
         }
@@ -53,7 +53,7 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AuctionCard", for: indexPath) as? AuctionCardCell else {
             // we failed to get a PersonCell – bail out!
-            fatalError("Unable to dequeue PersonCell.")
+            fatalError("Unable to dequeue AuctionCell.")
         }
         let val = listings![indexPath.row]["listing_name"]
         let val2 = listings![indexPath.row]["images"]
@@ -66,6 +66,13 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedListing = listings![indexPath.item]
         performSegue(withIdentifier: "toAuctionView", sender: nil)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.size.width/3, height: view.frame.size.height/6)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toAuctionView"){

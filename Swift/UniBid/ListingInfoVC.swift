@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ListingInfoVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ListingInfoVC: UIViewController {
     
     
     var selectedListing: [String:String?] = [:]
     private var collectionView: UICollectionView!
     private let identifier: String = "identifier"
-    private var images: [UIImage] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,9 @@ class ListingInfoVC: UIViewController, UICollectionViewDataSource, UICollectionV
         if let entryy = selectedListing["buy_now_price"] {
             buyNowLabel.text = "Buy Now Price: " + entryy! + "£"
         }
+        if let entryy = selectedListing["images"] {
+            setImage(from: "https://student.csc.liv.ac.uk/~sgcdeega/" + entryy! + "/image0.png")
+        }
         //navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: "toBrowseViewController")
         let backButton = UIBarButtonItem()
          backButton.title = "New Back Button Text"
@@ -37,21 +40,6 @@ class ListingInfoVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
         // Do any additional setup after loading the view.
         
-        let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumInteritemSpacing = 10
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        flowLayout.itemSize = CGSize(width: 300, height: 300)
- 
-        
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 110, width: view.frame.size.width, height: 115), collectionViewLayout: flowLayout)
-                collectionView.dataSource = self
-                collectionView.delegate = self
-                collectionView.backgroundColor = UIColor.clear.withAlphaComponent(0)
-                collectionView.alwaysBounceHorizontal = true
-                collectionView.register(ImageCell.self, forCellWithReuseIdentifier: identifier)
-                view.addSubview(collectionView)
     }
     
     @IBOutlet weak var descriptionFIeld: UITextView!
@@ -65,58 +53,31 @@ class ListingInfoVC: UIViewController, UICollectionViewDataSource, UICollectionV
     }
     @IBOutlet weak var navigationBar: UINavigationBar!
     
+    @IBOutlet weak var imageView: UIImageView!
+    
+    
     @IBAction func backBtn(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(identifier: "BrowseViewController") as! BrowseViewController
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
-    /*
-    @IBAction func backButton(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "mainVC") as! MainViewController
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
-    }
-     */
     
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if(images.count > 5){
-            return 5
+    func setImage(from url: String) {
+        // get url for the image
+        guard let imageURL = URL(string: url) else { return }
+
+            // just not to cause a deadlock in UI!
+        DispatchQueue.global().async {
+            guard let imageData = try? Data(contentsOf: imageURL) else { return }
+
+            let image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                self.imageView!.image = image
+            }
         }
-        return images.count
     }
-     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let data: UIImage = images[indexPath.item]
-        let cell: ImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! ImageCell
-        cell.image.image = data
-        return cell
-    }
- 
- 
 
- 
-class ImageCell: UICollectionViewCell {
-    var image: UIImageView!
- 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupViews()
-    }
-     
-    private func setupViews() {
-        image = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFill
-        addSubview(image)
-    }
-}
-
+    
     
 
     /*
