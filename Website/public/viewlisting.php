@@ -415,7 +415,7 @@
                   },
                   success: function(response){
                    // Perform operation on the return value
-                     alert(response);
+                     
                      updateWallet(2);
                   }
                  });

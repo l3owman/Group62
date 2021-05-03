@@ -21,15 +21,15 @@
         
             $selectSQL = "SELECT * FROM User WHERE email='$email' LIMIT 1";
             $select = mysqli_query($conn, $selectSQL);
-            $row = mysqli_fetch_assoc($select);
+            $rowUser = mysqli_fetch_assoc($select);
             
             
         
             $_SESSION['isLoggedOn'] = true;
-            $_SESSION['u_id'] = $row['user_id'];
-            $_SESSION['forename'] = $row['forename'];
-            $_SESSION['surname'] = $row['surname'];
-            $_SESSION['university'] = $row['university'];
+            $_SESSION['u_id'] = $rowUser['user_id'];
+            $_SESSION['forename'] = $rowUser['forename'];
+            $_SESSION['surname'] = $rowUser['surname'];
+            $_SESSION['university'] = $rowUser['university'];
             
             $selectSQL = "SELECT Wallet.wallet_amount FROM Wallet, User WHERE Wallet.wallet_id = User.wallet_id AND user_id = $_SESSION[u_id]";
             $select = mysqli_query($conn, $selectSQL);
@@ -40,14 +40,19 @@
             
             
             
-            
-            if($row['wallet_id']==null){
-              header('Location: createWallet.php');
-              exit();
-            }else{
-              header('Location: index.php');
-              exit();
+            if($rowUser['role_id']==1){
+              if($row['wallet_id']==null){
+                header('Location: createWallet.php');
+                exit();
+              }else{
+                header('Location: index.php');
+                exit();
+              }
+            }if($rowUser['role_id']==2){
+               header('Location: admin.php');
+               exit();
             }
+            
         }else{
             echo "Invalid username and password";
         }

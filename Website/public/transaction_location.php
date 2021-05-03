@@ -4,7 +4,7 @@ include('config.php');
 
 
     $_SESSION["location"] = $_POST["transactionLocation"];
-    header('Location: specifictransaction.php');
+    header('Location: specific_transaction.php');
 
 
 ?>

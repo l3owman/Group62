@@ -13,7 +13,7 @@
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">UniBid</a>
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <?php if( $_SESSION['isLoggedOn']): ?>
@@ -40,7 +40,7 @@
                     echo $_SESSION["university"];
                   ?></h7>
                 <div class="border-top my-4"></div>
-                <h7 class="text-center">Wallet Balance: &#163;<?php echo ($_SESSION["walletAmount"]/100);?></h7>
+                <h7 class="text-center" id="balance">Wallet Balance: &#163;<?php echo ($_SESSION["walletAmount"]/100);?></h7>
                 <div class="border-top my-4"></div>
               <?php endif; ?>
               <li class="nav-item">
@@ -117,7 +117,7 @@
 											<h3 class="mb-2" id="earnings">&#163;0</h3>
 											<p class="mb-2">Total Earnings</p>
 											<div class="mb-0">
-												<span class="badge badge-soft-success me-2 text-success"> <i class="mdi mdi-arrow-bottom-right"></i> +5.35% </span>
+												<span class="badge badge-soft-success me-2 text-success" id="perChangeEarnt"> <i class="mdi mdi-arrow-bottom-right"></i> 0% </span>
 												<span class="text-muted">Since last week</span>
 											</div>
 										</div>
@@ -133,10 +133,7 @@
 										<div class="flex-grow-1">
 											<h3 class="mb-2" id="listingsWon">0</h3>
 											<p class="mb-2">Listings Won</p>
-											<div class="mb-0">
-												<span class="badge badge-soft-danger me-2 text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -4.25% </span>
-												<span class="text-muted">Since last week</span>
-											</div>
+							
 										</div>
 										
 									</div>
@@ -205,7 +202,7 @@
                           <input type="text"  readonly class="form-control" id="address" placeholder="19 Tudor Road" style="background-color:transparent;">
                         </div>
                         <div class="col-3">
-                          <label for="postcode">Postocde</label>
+                          <label for="postcode">Postcode</label>
                           <input type="text" readonly class="form-control" placeholder="L233DH"  id="postcode" style="background-color:transparent;">
                         </div>
                       </div>
@@ -215,9 +212,9 @@
                                             
 								</div>
                 <div class="card-footer text-center">
-                    <button class="btn btn-sm btn-primary" type="submit">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="updateModal()">
                         <i data-feather="user-plus"></i> Update Details</button>
-                    <button class="btn btn-sm btn-danger" type="reset">
+                    <button class="btn btn-sm btn-danger" type="button" onclick="verifyDelete()">
                         <i data-feather="delete"></i> Delete Account</button>
                 </div>   
 							</div>
@@ -228,7 +225,7 @@
 							<div class="card flex-fill w-100">
 								<div class="card-header">
 									
-									<h5 class="card-title mb-0">Add To Wallet</h5>
+									<h5 class="card-title mb-0">Wallet</h5>
 								</div>
                   <div class="card-body">
                     <div class="row">
@@ -285,19 +282,19 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="cvv">CVV/CVC</label>
-                                <input class="form-control" id="cvv" type="text" maxlength="3" placeholder="123">
+                                <input class="form-control" id="cvv" type="text" minlength="3" maxlength="3" placeholder="123">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Deposit Amount</label>
+                                <label>Amount</label>
                                 <div class="input-group mb-3">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">	&#163;</span>
                                   </div>
-                                  <input type="number" class="form-control" placeholder="0" min='0' aria-label="deposit amount" aria-describedby="basic-addon1">
+                                  <input type="number" class="form-control" placeholder="0" min='0' id="amount" aria-label="amount" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </div>
@@ -305,8 +302,10 @@
                 </div>
                 
                 <div class="card-footer">
-                    <button class="btn btn-sm btn-success float-right" type="submit">
+                    <button class="btn btn-sm btn-success float-right" type="button" onclick="depositMoney()">
                         <i data-feather="download"></i> Deposit</button>
+                        <button class="btn btn-sm btn-success float-right mr-2" type="button" onclick="withdrawMoney()">
+                        <i data-feather="upload"></i> Withdraw</button>
                     <button class="btn btn-sm btn-danger" type="reset">
                         <i data-feather="refresh-ccw"></i> Reset</button>
                 </div>                                
@@ -317,6 +316,104 @@
 
 				</div>
 			</main>
+      <div class="modal" tabindex="-1" role="dialog" id="updateModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalheader">Update Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  <form action="updateDetails.php" method="POST">
+                       <div class="row">
+                        <div class="form-group col">
+                          <label for="firstname">First Name</label>
+                          <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Christian" autocomplete="off" style="background-color:transparent;">
+                        </div>
+                        <div class="col">
+                          <label for="surname">Last Name</label>
+                          <input type="text" class="form-control" placeholder="Deegan" name="lastname" autocomplete="off" style="background-color:transparent;">
+                        </div>
+                      </div>
+                      <div class="form-row w-100">
+                        <div class="form-group w-100">
+                          <label for="inputEmail4">Email</label>
+                          <input type="email" readonly class="form-control" id="inputEmail4" placeholder="test@test.com"  style="background-color:transparent;">
+                        </div>
+                  
+                      </div>
+                      <div class="form-row w-100">
+                        <div class="form-group w-100">
+                          <label for="Institution">Institution</label>
+                          <input type="text" readonly class="form-control" id="Institution" placeholder="University of Liverpool"  style="background-color:transparent;">
+                        </div>
+                  
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-9">
+                          <label for="address">Address</label>
+                          <input type="text"   class="form-control" id="address" name="address" autocomplete="off" placeholder="19 Tudor Road" style="background-color:transparent;">
+                        </div>
+                        <div class="col-3">
+                          <label for="postcode">Postcode</label>
+                          <input type="text"  class="form-control" placeholder="L233DH" name="postcode" autocomplete="off" id="postcode" style="background-color:transparent;">
+                        </div>
+                      </div>
+                    
+                    <div class="modal-footer text-center">
+                    <button class="btn btn-sm btn-primary" type="submit">
+                        Update Details</button>
+                    
+                    </div> 
+                    </form>
+                  
+                  </div>
+                
+                </div>
+              </div>
+       </div>
+      <div class="modal" tabindex="-1" role="dialog" id="bidModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalheader"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p id="message"></p>
+                  </div>
+                
+                </div>
+              </div>
+       </div>
+       <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalheader">Delete Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  <p id="message">To delete your account, please enter the email in use. (Case-Sensitive)</p>
+                    <form action="deleteAccount.php">
+                      <input type="text" class="form-control" id="confirmEmail" pattern="" autocomplete="off" oninvalid="try{setCustomValidity('Please Enter the Correct Email')}catch(e){}" required>
+                      <button type="submmit" class="btn btn-sm btn-danger mt-3">Delete Account</button>
+
+                    </form>
+
+                  </div>
+                </div>
+                  
+                
+                </div>
+              </div>
+       </div>
            
         <?php else: ?>
           <div class="container h-100">
@@ -348,6 +445,68 @@
              });
         </script>
         <script>
+        function updateModal(){
+           $("#updateModal").modal();
+        }
+        function verifyDelete(){
+             $.ajax({
+              url: 'verifyDelete.php',
+              type: 'POST',
+              success: function(response){
+               // Perform operation on the return value
+               var element = document.getElementById("confirmEmail");
+               element.setAttribute("pattern",response);
+               $("#deleteModal").modal();
+              }
+             });
+        }
+        function depositMoney(){   
+          var deposit = document.getElementById("amount").value;
+             $.ajax({
+              url: 'depositMoney.php',
+              type: 'POST',
+              data:{
+                deposit: deposit   
+              },
+              success: function(response){
+               // Perform operation on the return value
+               document.getElementById("modalheader").innerHTML = 'Success';
+               document.getElementById("message").innerHTML = 'Your deposit was successfuly placed within your account';
+               $("#bidModal").modal();
+               document.getElementById("balance").innerHTML = 'Wallet Balance: &#163;'+response/100;  
+              }
+          });
+        }
+        function withdrawMoney(){   
+          var withdraw = document.getElementById("amount").value;
+          if(withdraw == 0){
+            document.getElementById("modalheader").innerHTML = 'Failed';
+            document.getElementById("message").innerHTML = 'Please enter a value greater than &#163;0 to continue';
+            $("#bidModal").modal();
+          }
+          if(withdraw > <?php echo $_SESSION["walletAmount"]/100 ?>){
+             document.getElementById("modalheader").innerHTML = 'Failed';
+             document.getElementById("message").innerHTML = 'You are attempting to withdraw more than is available within your wallet. Please try again.';
+             $("#bidModal").modal();
+          }
+          if(withdraw < <?php echo $_SESSION["walletAmount"]/100 ?>&&withdraw >0){
+            $.ajax({
+              url: 'withdrawMoney.php',
+              type: 'POST',
+              data:{
+                withdraw: withdraw   
+              },
+              success: function(response){
+               // Perform operation on the return value
+               document.getElementById("modalheader").innerHTML = 'Success';
+               document.getElementById("message").innerHTML = 'Your money was successfuly withdrawn from your account';
+               $("#bidModal").modal();
+               document.getElementById("balance").innerHTML = 'Wallet Balance: &#163;'+response/100;  
+              }
+            });
+          }
+             
+        }
         function fetchActiveListings(){
              $.ajax({
               url: 'fetchActiveListings.php',
@@ -374,8 +533,22 @@
               type: 'POST',
               success: function(response){
                // Perform operation on the return value
+               var data = $.parseJSON(response);
                
-               document.getElementById("earnings").innerHTML = "&#163;"+response;  
+               document.getElementById("earnings").innerHTML = "&#163;"+data.totalEarnt; 
+               if(data.percentChange=='N/A'){
+                 var element = document.getElementById("perChangeEarnt");
+                 element.classList.remove('text-success');
+                 element.classList.add("text-primary");
+                 document.getElementById("perChangeEarnt").innerHTML = data.percentChange;  
+               }
+               if(data.percentChange<0){
+                 element.classList.remove('text-success');
+                 element.classList.add("text-danger");
+                 document.getElementById("perChangeEarnt").innerHTML = '-'+data.percentChange+'%'; 
+              } if(data.percentChange>0){
+                document.getElementById("perChangeEarnt").innerHTML = '+'+data.percentChange+'%';
+              } 
               }
              });
         }
@@ -397,9 +570,9 @@
                if(data.percentChange<0){
                  element.classList.remove('text-success');
                  element.classList.add("text-danger");
-                 document.getElementById("perChangeSpent").innerHTML = data.percentChange; 
-              }else{
-                document.getElementById("perChangeSpent").innerHTML = data.percentChange;
+                 document.getElementById("perChangeSpent").innerHTML = '-'+data.percentChange+'%'; 
+              } if(data.percentChange>0){
+                document.getElementById("perChangeSpent").innerHTML = '+'+data.percentChange+'%';
               }
               }
              });
