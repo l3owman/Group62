@@ -8,7 +8,7 @@
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   
-  $moneySpentLastWeek = "SELECT SUM(bid_highest) moneySpentWeek FROM Listing
+  $moneySpentLastWeek = "SELECT SUM(bid_highest) AS moneySpentWeek FROM Listing
                         WHERE end_time >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY
                         AND end_time < curdate() - INTERVAL DAYOFWEEK(curdate())-1 DAY AND buyer_id = '$user_id' AND status_id = 3";
 
@@ -21,10 +21,16 @@
     $response = array('totalSpent' => $moneySpent, 'percentChange' => 'N/A');
     echo json_encode($response);
   }else{
-    $decreaseValue = $newRow['moneySpentWeek'] - $row['moneySpent'];
+    $spentBeforeThisWeek = $row['moneySpent'] - $newRow['moneySpentWeek'];
+    
+    
+    
+    $decreaseValue = $row['moneySpent'] - $spentBeforeThisWeek;
+    
+    
      
-    $perChange = ($decreaseValue / $newRow['moneySpentWeek']) * 100;
-    $response = array('totalSpent' => $moneySpent, 'percentChange' => 5);
+    $perChange = ($decreaseValue / $spentBeforeThisWeek) * 100;
+    $response = array('totalSpent' => $moneySpent, 'percentChange' => $perChange);
     
     echo json_encode($response);
     
