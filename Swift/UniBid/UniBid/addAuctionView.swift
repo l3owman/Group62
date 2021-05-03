@@ -63,8 +63,8 @@ class addAuctionView: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         
     }
     
-    let categories = ["1A","21","312","ASD"]
-    let durations = ["opt1","opt2"]
+    let categories = ["Kitchen","Bedroom","Outdoors","Bathroom","Books & Stationery","Miscellaneous"]
+    let durations = ["Quick - 5 Hours","Short - 24 Hours","Medium - 3 Days","Long - 7 Days"]
     
     var pickerViewCategory = UIPickerView()
     var pickerViewDuration = UIPickerView()
@@ -78,6 +78,46 @@ class addAuctionView: UIViewController, UITextFieldDelegate, UITextViewDelegate,
     @IBOutlet weak var listingDuration: UITextField!
     @IBOutlet weak var charactersLeft: UILabel!
     
+    @IBAction func createListingBtn(_ sender: Any) {
+        let title = String(listingTitle.text!)
+        let description =  String(listingDescription.text!)
+        let category = String(listingTitle.text!)
+        let bidPrice = String(listingBidPrice.text!)
+        let duration = String(listingDuration.text!)
+        var alertMessageTitle = ""
+        var alertMessage = ""
+        
+        if(title == "") {
+            alertMessageTitle = "Title is a mandatory field"
+            alertMessage = "Please input a title for your listing."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(description == "") {
+            alertMessageTitle = "Description is a mandatory field"
+            alertMessage = "Please input a description for your listing."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(category == "") {
+            alertMessageTitle = "Category is a mandatory field"
+            alertMessage = "Please select a category for your listing."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(bidPrice == "") {
+            alertMessageTitle = "Bid Price is a mandatory field"
+            alertMessage = "Please input a bid price for your listing."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else if(duration == "") {
+            alertMessageTitle = "Duration is a mandatory field"
+            alertMessage = "Please select a duration for your listing."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+        else {
+            alertMessageTitle = "Listing Created"
+            alertMessage = "Congratulations you have successfully created a listing."
+            showAlert(alertMessageTitle, alertMessage)
+        }
+    }
     
     // Objects
     @objc func handleTap() {
@@ -228,6 +268,30 @@ class addAuctionView: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         cell.image.image = data
         return cell
     }
+    
+    
+    func showAlert(_ messageTitle: String, _ message: String) {
+        DispatchQueue.main.async {
+            //Create an alert
+            let alert = UIAlertController(title: messageTitle, message: message, preferredStyle: .alert)
+            //Add actions
+            if(messageTitle == "Listing Created"){
+                let alertAction = UIAlertAction(title: "My Listings", style: .cancel, handler: {(action) -> Void in
+                    //Call the MainViewController
+                    let vc = self.storyboard?.instantiateViewController(identifier: "MyListingsViewController") as! MyListingsViewController
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                })
+                
+                alert.addAction(alertAction)
+            } else {
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            }
+
+            //Present alert
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
  
  
 }
@@ -252,6 +316,7 @@ class ImageCell: UICollectionViewCell {
         addSubview(image)
     }
 
+    
     
     /*
     // MARK: - Navigation

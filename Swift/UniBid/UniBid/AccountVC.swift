@@ -51,6 +51,11 @@ class AccountVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         cell.textLabel?.text = sections[indexPath.section].options?[indexPath.row]
         cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+        
+        if(cell.textLabel?.text == "Log Out") {
+            cell.textLabel?.textColor = .red
+        }
+        
         return cell
     }
     
@@ -64,8 +69,8 @@ class AccountVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var selectednSectionIndex = indexPath.section
-        var selectedCellIndex = indexPath.row
+        let selectednSectionIndex = indexPath.section
+        let selectedCellIndex = indexPath.row
 
         if(selectednSectionIndex == 0 && selectedCellIndex == 1) {
             let vc = self.storyboard?.instantiateViewController(identifier: "LogInViewController") as! LogInView
@@ -77,6 +82,7 @@ class AccountVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
         }
+        
 
     }
     
