@@ -1,9 +1,19 @@
 <?php
   session_start();
+  include('config.php');
+  
+  $user_id = $_SESSION['u_id'];
+  $SQL = "SELECT * FROM User WHERE user_id = '$user_id'";
+  $result = mysqli_query($conn, $SQL);
+  $row = mysqli_fetch_assoc($result);
+ 
+  
 ?>
 <!DOCTYPE html>
 <html>
   <head>
+  
+    <title>My Account</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="jquery.min.js" async></script>
@@ -171,39 +181,39 @@
                                               
 								<div class="card-body d-flex w-100">
 									<div class="mx-auto w-75">
-                    <form>
+                    <form action="wallet.php">
                        <div class="row">
                         <div class="form-group col">
                           <label for="firstname">First Name</label>
-                          <input type="text"  readonly class="form-control" id="firstname" placeholder="Christian" style="background-color:transparent;">
+                          <input type="text"  readonly class="form-control" id="firstname" placeholder="<?php echo  $_SESSION["forename"]; ?>" style="background-color:transparent;">
                         </div>
                         <div class="col">
                           <label for="surname">Last Name</label>
-                          <input type="text" readonly class="form-control" placeholder="Deegan"  style="background-color:transparent;">
+                          <input type="text" readonly class="form-control" placeholder="<?php echo $_SESSION["surname"]; ?>"  style="background-color:transparent;">
                         </div>
                       </div>
                       <div class="form-row w-100">
                         <div class="form-group w-100">
                           <label for="inputEmail4">Email</label>
-                          <input type="email" readonly class="form-control" id="inputEmail4" placeholder="test@test.com"  style="background-color:transparent;">
+                          <input type="email" readonly class="form-control" id="inputEmail4" placeholder="<?php echo $row['email']; ?>"  style="background-color:transparent;">
                         </div>
                   
                       </div>
                       <div class="form-row w-100">
                         <div class="form-group w-100">
                           <label for="Institution">Institution</label>
-                          <input type="text" readonly class="form-control" id="Institution" placeholder="University of Liverpool"  style="background-color:transparent;">
+                          <input type="text" readonly class="form-control" id="Institution" placeholder="<?php echo  $_SESSION["university"]; ?>"  style="background-color:transparent;">
                         </div>
                   
                       </div>
                       <div class="row">
                         <div class="form-group col-9">
                           <label for="address">Address</label>
-                          <input type="text"  readonly class="form-control" id="address" placeholder="19 Tudor Road" style="background-color:transparent;">
+                          <input type="text"  readonly class="form-control" id="address" placeholder="<?php echo $row['address']; ?>" style="background-color:transparent;">
                         </div>
                         <div class="col-3">
                           <label for="postcode">Postcode</label>
-                          <input type="text" readonly class="form-control" placeholder="L233DH"  id="postcode" style="background-color:transparent;">
+                          <input type="text" readonly class="form-control" placeholder="<?php echo $row['postcode']; ?>"  id="postcode" style="background-color:transparent;">
                         </div>
                       </div>
                     </form>
@@ -221,18 +231,19 @@
                         
 						</div>
 						<div class="col-12 col-lg-4 d-flex">
-              <form>
+              
 							<div class="card flex-fill w-100">
 								<div class="card-header">
 									
 									<h5 class="card-title mb-0">Wallet</h5>
 								</div>
+                 <form>                                      
                   <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input class="form-control" id="name" type="text" placeholder="Enter Name on Card">
+                                <input class="form-control" id="name" type="text" required placeholder="Enter Name on Card">
                             </div>
                         </div>
                     </div>
@@ -241,7 +252,7 @@
                             <div class="form-group">
                                 <label for="ccnumber">Credit Card Number</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="0000 0000 0000 0000"  maxlength="19" id="cardNum">
+                                    <input class="form-control" type="text" placeholder="0000 0000 0000 0000"  maxlength="19" id="cardNum" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i data-feather="credit-card"></i>
@@ -254,7 +265,7 @@
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <label for="ccmonth">Month</label>
-                            <select class="form-control" id="ccmonth">
+                            <select class="form-control" required id="ccmonth">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -271,7 +282,7 @@
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="ccyear">Year</label>
-                            <select class="form-control" id="ccyear">
+                            <select class="form-control" required id="ccyear">
                                 <option>2021</option>
                                 <option>2022</option>
                                 <option>2023</option>
@@ -282,7 +293,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="cvv">CVV/CVC</label>
-                                <input class="form-control" id="cvv" type="text" minlength="3" maxlength="3" placeholder="123">
+                                <input class="form-control" id="cvv" required type="text" minlength="3" maxlength="3" placeholder="123">
                             </div>
                         </div>
                     </div>
@@ -294,7 +305,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">	&#163;</span>
                                   </div>
-                                  <input type="number" class="form-control" placeholder="0" min='0' id="amount" aria-label="amount" aria-describedby="basic-addon1">
+                                  <input type="number" class="form-control" placeholder="0" min='0' id="amount" required aria-label="amount" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </div>
@@ -302,9 +313,9 @@
                 </div>
                 
                 <div class="card-footer">
-                    <button class="btn btn-sm btn-success float-right" type="button" onclick="depositMoney()">
+                    <button class="btn btn-sm btn-success float-right" type="button" name="walletAction" value="deposit" onclick="depositMoney()">
                         <i data-feather="download"></i> Deposit</button>
-                        <button class="btn btn-sm btn-success float-right mr-2" type="button" onclick="withdrawMoney()">
+                        <button class="btn btn-sm btn-success float-right mr-2" type="submit" name="walletAction" value="withdraw" onclick="withdrawMoney()">
                         <i data-feather="upload"></i> Withdraw</button>
                     <button class="btn btn-sm btn-danger" type="reset">
                         <i data-feather="refresh-ccw"></i> Reset</button>
@@ -330,35 +341,35 @@
                        <div class="row">
                         <div class="form-group col">
                           <label for="firstname">First Name</label>
-                          <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Christian" autocomplete="off" style="background-color:transparent;">
+                          <input type="text" class="form-control" id="firstname"  name="firstname" placeholder="<?php echo $_SESSION['forename'];?>" autocomplete="off" style="background-color:transparent;">
                         </div>
                         <div class="col">
                           <label for="surname">Last Name</label>
-                          <input type="text" class="form-control" placeholder="Deegan" name="lastname" autocomplete="off" style="background-color:transparent;">
+                          <input type="text" class="form-control" placeholder="<?php echo $_SESSION['surname'];?>"  name="lastname" autocomplete="off" style="background-color:transparent;">
                         </div>
                       </div>
                       <div class="form-row w-100">
                         <div class="form-group w-100">
                           <label for="inputEmail4">Email</label>
-                          <input type="email" readonly class="form-control" id="inputEmail4" placeholder="test@test.com"  style="background-color:transparent;">
+                          <input type="email" readonly class="form-control" id="inputEmail4" placeholder="<?php echo $row['email']; ?>"  style="background-color:transparent;">
                         </div>
                   
                       </div>
                       <div class="form-row w-100">
                         <div class="form-group w-100">
                           <label for="Institution">Institution</label>
-                          <input type="text" readonly class="form-control" id="Institution" placeholder="University of Liverpool"  style="background-color:transparent;">
+                          <input type="text" readonly class="form-control" id="Institution" placeholder="<?php echo $_SESSION['university'];?>"  style="background-color:transparent;">
                         </div>
                   
                       </div>
                       <div class="row">
                         <div class="form-group col-9">
                           <label for="address">Address</label>
-                          <input type="text"   class="form-control" id="address" name="address" autocomplete="off" placeholder="19 Tudor Road" style="background-color:transparent;">
+                          <input type="text"   class="form-control" id="address" name="address"  autocomplete="off" placeholder="<?php echo $row['address'];?>" style="background-color:transparent;">
                         </div>
                         <div class="col-3">
                           <label for="postcode">Postcode</label>
-                          <input type="text"  class="form-control" placeholder="L233DH" name="postcode" autocomplete="off" id="postcode" style="background-color:transparent;">
+                          <input type="text"  class="form-control" placeholder="<?php echo $row['postcode'];?>" name="postcode"   autocomplete="off" id="postcode" style="background-color:transparent;">
                         </div>
                       </div>
                     
@@ -378,7 +389,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="modalheader"></h5>
+                    <h5 class="modal-title" id="modalheaderBox"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -461,8 +472,34 @@
              });
         }
         function depositMoney(){   
-          var deposit = document.getElementById("amount").value;
-             $.ajax({
+         var name = document.getElementById("name").value;
+         var deposit = document.getElementById("amount").value;
+         var cardNum = document.getElementById("cardNum").value.length;
+         var cvv = document.getElementById("cvv").value.length;
+        
+         if(deposit == 0){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter a value greater than &#163;0 to continue';
+                  $("#bidModal").modal();        
+         }
+        
+         if(cvv < 3){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter a valid CVV number to continue';
+                  $("#bidModal").modal();        
+         }
+         if(cardNum < 19){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter a valid card number to continue';
+                  $("#bidModal").modal();        
+         }
+          if(name == ''){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter the name on your card to continue';
+                  $("#bidModal").modal();        
+         }
+         if(name!=''&&cardNum==19&&cvv==3&&deposit>0){
+            $.ajax({
               url: 'depositMoney.php',
               type: 'POST',
               data:{
@@ -470,26 +507,49 @@
               },
               success: function(response){
                // Perform operation on the return value
-               document.getElementById("modalheader").innerHTML = 'Success';
+
+               document.getElementById("modalheaderBox").innerHTML = 'Success';
                document.getElementById("message").innerHTML = 'Your deposit was successfuly placed within your account';
                $("#bidModal").modal();
                document.getElementById("balance").innerHTML = 'Wallet Balance: &#163;'+response/100;  
-              }
+              
+            }
           });
+         }
         }
         function withdrawMoney(){   
-          var withdraw = document.getElementById("amount").value;
-          if(withdraw == 0){
-            document.getElementById("modalheader").innerHTML = 'Failed';
-            document.getElementById("message").innerHTML = 'Please enter a value greater than &#163;0 to continue';
-            $("#bidModal").modal();
-          }
+         var withdraw = document.getElementById("amount").value;
+         var name = document.getElementById("name").value;
+         var cardNum = document.getElementById("cardNum").value.length;
+         var cvv = document.getElementById("cvv").value.length;
+        
+         if(withdraw == 0){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter a value greater than &#163;0 to continue';
+                  $("#bidModal").modal();        
+         }
+        
+         if(cvv < 3){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter a valid CVV number to continue';
+                  $("#bidModal").modal();        
+         }
+         if(cardNum < 19){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter a valid card number to continue';
+                  $("#bidModal").modal();        
+         }
+          if(name == ''){
+                  document.getElementById("modalheaderBox").innerHTML = 'Failed';
+                  document.getElementById("message").innerHTML = 'Please enter the name on your card to continue';
+                  $("#bidModal").modal();        
+         }
           if(withdraw > <?php echo $_SESSION["walletAmount"]/100 ?>){
-             document.getElementById("modalheader").innerHTML = 'Failed';
+             document.getElementById("modalheaderBox").innerHTML = 'Failed';
              document.getElementById("message").innerHTML = 'You are attempting to withdraw more than is available within your wallet. Please try again.';
              $("#bidModal").modal();
           }
-          if(withdraw < <?php echo $_SESSION["walletAmount"]/100 ?>&&withdraw >0){
+          if(withdraw < <?php echo $_SESSION["walletAmount"]/100 ?>&&withdraw >0&&name!=''&&cardNum==19&&cvv==3){
             $.ajax({
               url: 'withdrawMoney.php',
               type: 'POST',
@@ -498,7 +558,7 @@
               },
               success: function(response){
                // Perform operation on the return value
-               document.getElementById("modalheader").innerHTML = 'Success';
+               document.getElementById("modalheaderBox").innerHTML = 'Success';
                document.getElementById("message").innerHTML = 'Your money was successfuly withdrawn from your account';
                $("#bidModal").modal();
                document.getElementById("balance").innerHTML = 'Wallet Balance: &#163;'+response/100;  
@@ -553,13 +613,13 @@
              });
         }
         function fetchTotalSpent(){
+        
              $.ajax({
               url: 'fetchTotalSpent.php',
               type: 'POST',
               success: function(response){
                // Perform operation on the return value
-               var data = $.parseJSON(response);
-                 
+               var data = $.parseJSON(response);                 
                document.getElementById("totalSpent").innerHTML = "&#163;"+data.totalSpent;
                if(data.percentChange=='N/A'){
                  var element = document.getElementById("perChangeSpent");
@@ -581,6 +641,7 @@
         </script>
         <script>
           $(document).ready(function(){
+            
 
             //For Card Number formatted input
             var cardNum = document.getElementById('cardNum');

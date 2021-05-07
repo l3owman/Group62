@@ -1,10 +1,9 @@
 <?php
   session_start();
-  
-  
   include('config.php');
+  $user_id = $_SESSION['u_id'];
   
-  $sql = "SELECT * FROM Listing WHERE status_id = 1";
+  $sql = "SELECT * FROM Listing WHERE status_id = 1 AND seller_id != '$user_id' ORDER BY num_of_bids DESC;";
   $result = mysqli_query($conn, $sql);
   
   $listing_data = array();
@@ -15,8 +14,6 @@
    
    $json = json_encode($listing_data, JSON_PRETTY_PRINT);
    
-   $file_name = date('d-m-y') . '.json';
-   file_put_contents($file_name, $json);
    
    $decoded_array = json_decode($json, true);
    
@@ -27,9 +24,14 @@
         <div class="card h-100 mb-3 mr-2" style="min-width: 15.3rem; max-width: 15.3rem; min-height: 31.5rem">
             <img height="270" width="180" class="card-img-top" src="<?= $jsonArr["images"] ?>/<?= $firstFile?>">
             <div class="card-body">
-                <h5 class="card-title" id="listing_title"><?= $jsonArr["listing_name"] ?> <?= $jsonArr["listing_id"] ?></h5>
+                <h5 class="card-title" id="listing_title"><?= $jsonArr["listing_name"] ?></h5>
                 <p class="card-text scrollable"><?= $jsonArr["description"] ?></p>
             </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-center">Highest Bid: &#163;<?= $jsonArr["bid_highest"]/100 ?></li>
+              
+            
+            </ul>
             <div class="card-footer">
                   <div class="text-center">
                     <form method="post" action="viewlisting.php">
@@ -43,11 +45,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Browse</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
-    <script src="jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="jquery.validate.min.js"></script>
+    <script src="jquery.min.js" async></script>
+    <script src="bootstrap.min.js" async></script>
+    <script src="jquery.validate.min.js" async></script>
   </head>
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -135,10 +138,14 @@
               }
             ?>
           </div>
+         
  
         </div>
-        <script>
+       
+  
+         <script>
         $(document).ready(function(){
+          
           $('#search').keyup(function (){
             $('.card').removeClass('d-none');
             var filter = $(this).val(); 

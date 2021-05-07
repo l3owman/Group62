@@ -40,7 +40,23 @@
     
     $storeArray = (array_values($booleanVal[0]));
     $indexVal =  $storeArray[0];
- 
+    
+    $sellerID = $listingData['seller_id'];
+    
+    $getSellerInfo = "SELECT forename, surname FROM User JOIN  Listing WHERE '$sellerID' = '$sellerID' LIMIT 1";
+    $select = mysqli_query($conn, $getSellerInfo);
+    $row = mysqli_fetch_assoc($select);
+    
+    $catID = $listingData['category_id'];
+    
+    $getCategory = "SELECT category_name FROM Category WHERE category_id = '$catID'";
+    $selectCat = mysqli_query($conn, $getCategory);
+    $rowCat = mysqli_fetch_assoc($selectCat);
+    
+    
+    $getRating = "SELECT AVG(rating) as rating, COUNT(feedback_id) as numOfRatings FROM Feedback WHERE user_id = '$sellerID'";
+    $selectRating = mysqli_query($conn, $getRating);
+    $rowRating = mysqli_fetch_assoc($selectRating);
 
 ?>
  
@@ -48,7 +64,7 @@
 
 <html>
   <head>
-    
+    <title>View Listing</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="jquery.min.js" async></script>
@@ -217,26 +233,42 @@
               <div class="col-md-6">
           
                 <h5><?php echo $listingData['listing_name']; ?></h5>
-                <p class="mb-2 text-muted text-uppercase small">Category</p>
-                <p>Rating:</p>
-                <p><span class="mr-1"><strong>Buy Now: &#163;<?php echo $listingData['buy_now_price']; ?></strong></span></p>
+                <p class="mb-2 text-muted text-uppercase small">Category: <?php echo $rowCat['category_name'];?></p>
+                <p class="mb-2 text-muted text-uppercase small">Rating: <?php echo round($rowRating['rating'], 1);?></p>
+                <p class="mb-2 text-muted text-uppercase small">Average based on <?php echo $rowRating['numOfRatings']?> review(s).</p>
+                
+          
+                
+                <?php if ($listingData['buy_now']==1): ?>
+                <p><span class="mr-1"><strong>Buy Now: &#163;<?php echo $listingData['buy_now_price']/100; ?></strong></span></p>
+                <?php endif; ?>
                 <p id="bidHighest"><span class="mr-1"><strong>Current Bid Price: &#163;<?php echo $listingData['bid_highest']/100; ?></strong></span></p>
-                <p class="pt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit
-                  error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. Distinctio,
-                  officia quis dolore quos sapiente tempore alias.</p>
+                <p class="pt-1"><?php echo $listingData['description']; ?></p>
                 <div class="table-responsive">
                   <table class="table table-sm table-borderless mb-0" style="text-align: left;">
                     <tbody>
                       <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Seller</strong></th>
-                        <td>Seller Name</td>
+                        <th class="pl-0 w-25" scope="row"><strong>Seller:</strong></th>
+                        <td><?php echo $row['forename']; ?> <?php echo $row['surname']; ?></td>
                       </tr>
                       <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Condition</strong></th>
-                        <td>Condition</td>
+                        <th class="pl-0 w-25" scope="row"><strong>Condition:</strong></th>
+                        <?php if ($listingData['condition_id']==1): ?>
+                        <td>Perfect</td>
+                        <?php endif; ?>
+                        <?php if ($listingData['condition_id']==2): ?>
+                        <td>Good</td>
+                        <?php endif; ?>
+                        <?php if ($listingData['condition_id']==3): ?>
+                        <td>Poor</td>
+                        <?php endif; ?>
                       </tr>
                       <tr>
-                        <th class="pl-0 w-25" scope="row"><strong>Bids</strong></th>
+                        <th class="pl-0 w-25" scope="row"><strong>Starting Bid:</strong></th>
+                        <td><p id="startingBid">&#163;<?php echo $listingData['start_price']/100?></p></td>
+                      </tr>
+                      <tr>
+                        <th class="pl-0 w-25" scope="row"><strong>Bids:</strong></th>
                         <td><p id="numBids"><?php echo $listingData['num_of_bids']?></p></td>
                       </tr>
                     
@@ -255,12 +287,23 @@
                       
                         <td class="pl-0">
                           <div class="def-number-input number-input safari_only mb-0">
+                          <?php if( $_SESSION['isLoggedOn']): ?>
                           <label for="bidPrice">Enter Bid Amount</label>
                             <div class="input-group mb-0">
                               <div class="input-group-prepend">
                                 <span class="input-group-text">&#163;</span>
                               </div>
-                             <input type="number" id="bidPrice" name="bidPrice" class="form-control" aria-label="Amount" min='<?php echo ($listingData['bid_highest']/100)+1; ?>' value='<?php echo ($listingData['bid_highest']/100)+1; ?>'/100>
+                             <input type="number" id="bidPrice" name="bidPrice" class="form-control" aria-label="Amount" min='<?php if($listingData['start_price']>$listingData['bid_highest']):
+                                                                                                                                 echo($listingData['start_price']/100);
+                                                                                                                                 else:
+                                                                                                                                   echo(($listingData['bid_highest']/100)+1); 
+                                                                                                                                   endif; ?>'
+                                                                                                                                  value='<?php if($listingData['start_price']>$listingData['bid_highest']):
+                                                                                                                                 echo($listingData['start_price']/100);
+                                                                                                                                 else:
+                                                                                                                                   echo(($listingData['bid_highest']/100)+1); 
+                                                                                                                                   endif; ?>'>
+                              <?php endif; ?>
                             </div>
                           </div>
                         </td>
@@ -268,13 +311,17 @@
                     </tbody>
                   </table>
                 </div>
-                <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
+                <?php if( $_SESSION['isLoggedOn']): ?>
+                <?php if ($listingData['buy_now']==1): ?>
+                  <button type="button" class="btn btn-primary btn-md mr-1 mb-2" onclick="buyNow()">Buy now</button>
+                <?php endif; ?>
                 <button type="button" class="btn btn-primary btn-md mr-1 mb-2" onclick="addBid()">Bid</button>
-                 <?php if( $_SESSION['isLoggedOn']): ?>
+                <button type="button" class="btn btn-danger btn-md mr-1 mb-2" style="float: right;" onclick="complaint()">Complaint</button>
+                 
                   <?php if( $indexVal == 0): ?>
-                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2" style="float: right;" id="addWishList">Add to Wishlist</button>
+                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2" style="float: right;" onclick="addWishList()" id="addWishList">Add to Wishlist</button>
                   <?php else: ?>
-                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2" style="float: right;" id="removeWishList">Remove from Wishlist</button>
+                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2" style="float: right;" onclick="removeWishList()" id="removeWishList">Remove from Wishlist</button>
                   <?php endif; ?>
                 <?php endif; ?>
               </div>
@@ -347,13 +394,92 @@
                setInterval(fetchBidCountData,1000);
                setInterval(fetchBidPriceData,1000);
                setInterval(checkListingForWinner,1000);
-               setInterval(updateWallet, 1000);               
+               setInterval(updateWallet, 1000);
+               setInterval(isComplete, 1000);            
                
               });
             </script>
           <script>
             var highestBidAmount = <?php echo $listingData['bid_highest']; ?>;
             var userWallet;
+            var listing_id = <?php echo $listingData['listing_id']; ?>;
+            var buyNowVal = <?php echo $listingData['buy_now_price']; ?>;
+            
+            function complaint() {
+              var complaint = prompt("Please enter your Complaint:", "");
+              if (complaint == null || complaint == "") {
+                
+                document.getElementById("modalheader").innerHTML = 'Error Submitting Complaint';
+                document.getElementById("message").innerHTML = 'Please Enter a valid Complaint.';
+                $("#bidModal").modal();
+                
+              } else {
+                $.ajax({
+                  url: 'submitComplaint.php',
+                  type: 'POST',
+                  data:{
+                    listing_id: listing_id,
+                    complaint: complaint
+                    
+                  },
+                  success: function(response){
+                   // Perform operation on the return value
+                     document.getElementById("modalheader").innerHTML = 'Sucess Submitting Complaint';
+                     document.getElementById("message").innerHTML = 'Your complaint was successfully submitted.';
+                     $("#bidModal").modal();
+                    
+                     
+                  }
+                 });
+                
+              }
+              
+            }
+            
+             function isComplete(){
+             
+                $.ajax({
+                  url: 'isComplete.php',
+                  type: 'POST',
+                  data:{
+                    listing_id: listing_id
+                    
+                  },
+                  success: function(response){
+                   // Perform operation on the return value
+                    if(response == 3){
+                      window.location.replace('https://student.csc.liv.ac.uk/~sgcdeega/index.php');
+                    }
+                     
+                  }
+                 });
+             
+               
+             
+             }
+              
+            
+            function buyNow(){  
+            if (buyNowVal <= <?php echo $_SESSION["walletAmount"]; ?>){
+               $.ajax({
+                url: 'buyNow.php',
+                type: 'POST',
+                data:{
+                  listing_id: listing_id,
+                  buyNowVal : buyNowVal
+                },
+                success: function(response){
+                 // Perform operation on the return value
+                  
+                   updateWallet(2); 
+                }
+               });
+             }else{
+               document.getElementById("modalheader").innerHTML = 'Error Submitting Bid';
+               document.getElementById("message").innerHTML = 'Insufficent Funds. Please deposit money within the <i>Account</i> Section.';
+               $("#bidModal").modal();
+             }
+            }
             function fetchBidCountData(){
              var listing_id = <?php echo $listingData['listing_id']; ?>;
              $.ajax({
@@ -458,11 +584,9 @@
              });
              
             }
-          </script>
-          <script>
-          $(document).ready(function() {
-          	$('#addWishList').on('click', function() {
-          		$("#addWishList").attr("disabled", "disabled");
+            function addWishList() {
+             
+ 	         	$("#addWishList").attr("disabled", "disabled");
 	              var listing_id = <?php echo $listingData['listing_id']; ?>;
           			$.ajax({
                     url:'add_to_wishlist.php',
@@ -475,9 +599,10 @@
                        alert('Added to Wishlist');
                    }
                 });
-          	});
-           $('#removeWishList').on('click', function() {
-          		$("#removeWishList").attr("disabled", "disabled");
+          	}
+           
+           function removeWishList(){
+             $("#removeWishList").attr("disabled", "disabled");
 	              var listing_id = <?php echo $listingData['listing_id']; ?>;
           			$.ajax({
                     url:'remove_from_wishlist.php',
@@ -490,24 +615,10 @@
                        alert('Removed from Wishlist');
                    }
                 });
-          	});
            
-           
-           
-          });
+           }
           </script>
-          
-        <script>
-        $(document).ready(function(){
-          $('#search').keyup(function (){
-            $('.card').removeClass('d-none');
-            var filter = $(this).val(); 
-            $('.card-deck').find('.card .card-title:not(:contains("'+filter+'"))').parent().parent().addClass('d-none');
-          });
-        });
-        </script>
-        
-       
+
       
         
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

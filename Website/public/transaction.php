@@ -22,18 +22,18 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Months', 'Sales By Month'],
-                ['Jan', <?php echo $sales_array["01"]; ?>],
-                ['Feb', <?php echo $sales_array["02"]; ?>],
-                ['Mar', <?php echo $sales_array["03"]; ?>],
-                ['Apr', <?php echo $sales_array["04"]; ?>],
-                ['May', <?php echo $sales_array["05"]; ?>],
-                ['Jun', <?php echo $sales_array["06"]; ?>],
-                ['Jul', <?php echo $sales_array["07"]; ?>],
-                ['Aug', <?php echo $sales_array["08"]; ?>],
-                ['Sep', <?php echo $sales_array["09"]; ?>],
-                ['Oct', <?php echo $sales_array["10"]; ?>],
-                ['Nov', <?php echo $sales_array["11"]; ?>],
-                ['Dec',   <?php echo $sales_array["12"]; ?>]
+                ['Jan', <?php echo $sales_array["01"]/100; ?>],
+                ['Feb', <?php echo $sales_array["02"]/100; ?>],
+                ['Mar', <?php echo $sales_array["03"]/100; ?>],
+                ['Apr', <?php echo $sales_array["04"]/100; ?>],
+                ['May', <?php echo $sales_array["05"]/100; ?>],
+                ['Jun', <?php echo $sales_array["06"]/100; ?>],
+                ['Jul', <?php echo $sales_array["07"]/100; ?>],
+                ['Aug', <?php echo $sales_array["08"]/100; ?>],
+                ['Sep', <?php echo $sales_array["09"]/100; ?>],
+                ['Oct', <?php echo $sales_array["10"]/100; ?>],
+                ['Nov', <?php echo $sales_array["11"]/100; ?>],
+                ['Dec',   <?php echo $sales_array["12"]/100; ?>]
             ],false);
 
             var options = {

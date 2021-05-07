@@ -45,26 +45,27 @@
                   </div>
                   <div class="card-block text-center px-2">
                     <h5 class="mb-4 mt-2">Listing Details:</h5>
-                          <p class="card-text">Bought for: </p>
+                          <p class="card-text">Current Highest Bid: <?= $jsonArr["bid_highest"]/100 ?> </p>
+                          <p class="card-text">Number of Bids: <?= $jsonArr["num_of_bids"] ?> </p>
+                          <form action="removeFromWishlist.php" method="post">
+                            <button type="submit" value="<?php echo $jsonArr["listing_id"];?>" name="listing_id" class="btn btn-primary">Remove from Wishlist</a>
+                          </form>
+                          
+                           
                         </div>
                   </div>
                   <div class="card-footer   text-muted">
                     <div class="text-left" id="demo">
-   
-        
                       Active Until: <?=  $formatedDate ?>
                     </div>
                   </div>
          </div>
-    
-         
-        
-
 <?php } ?>
 
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Wishlist</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
   </head>
@@ -171,6 +172,26 @@
           </div>
         <?php endif; ?>
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+          $(document).ready(function() {
+
+           $('#removeWishList').on('click', function() {
+          		$("#removeWishList").attr("disabled", "disabled");
+	              var listing_id = <?php echo $jsonArr['listing_id']; ?>;
+          			$.ajax({
+                    url:'remove_from_wishlist.php',
+                    method:'POST',
+                    data:{
+                        listing_id: listing_id
+                  
+                    },
+                   success:function(data){
+                       alert('Removed from Wishlist');
+                   }
+                });
+          	});
+        });
+        </script>
         <script>
           feather.replace()
         </script>   

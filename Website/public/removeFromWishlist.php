@@ -9,10 +9,10 @@
 
   if ($conn->query($sql) === TRUE) {
   
-      echo json_encode(array("statusCode"=>200));
+       header('Location: wishlist.php');
   }
   else 
   {
-      echo json_encode(array("statusCode"=>201));
+       header('Location: wishlist.php');
   }
 ?>

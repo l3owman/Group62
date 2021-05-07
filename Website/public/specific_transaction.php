@@ -22,18 +22,18 @@ include('specific_trans_setup.php');
 
             var data = google.visualization.arrayToDataTable([
                 ['Months', 'Sales By Month'],
-                ['Jan', <?php echo  $salesArray["01"] ;?>],
-                ['Feb', <?php echo $salesArray["02"]; ?>],
-                ['Mar', <?php echo $salesArray["03"]; ?>],
-                ['Apr', <?php echo $salesArray["04"]; ?>],
-                ['May', <?php echo $salesArray["05"]; ?>],
-                ['Jun', <?php echo $salesArray["06"]; ?>],
-                ['Jul', <?php echo $salesArray["07"]; ?>],
-                ['Aug', <?php echo $salesArray["08"]; ?>],
-                ['Sep', <?php echo $salesArray["09"]; ?>],
-                ['Oct', <?php echo $salesArray["10"]; ?>],
-                ['Nov', <?php echo $salesArray["11"]; ?>],
-                ['Dec',   <?php echo $salesArray["12"]; ?>]
+                ['Jan', <?php echo  $salesArray["01"]/100 ;?>],
+                ['Feb', <?php echo $salesArray["02"]/100; ?>],
+                ['Mar', <?php echo $salesArray["03"]/100; ?>],
+                ['Apr', <?php echo $salesArray["04"]/100; ?>],
+                ['May', <?php echo $salesArray["05"]/100; ?>],
+                ['Jun', <?php echo $salesArray["06"]/100; ?>],
+                ['Jul', <?php echo $salesArray["07"]/100; ?>],
+                ['Aug', <?php echo $salesArray["08"]/100; ?>],
+                ['Sep', <?php echo $salesArray["09"]/100; ?>],
+                ['Oct', <?php echo $salesArray["10"]/100; ?>],
+                ['Nov', <?php echo $salesArray["11"]/100; ?>],
+                ['Dec',   <?php echo $salesArray["12"]/100; ?>]
             ],false);
 
             var options = {

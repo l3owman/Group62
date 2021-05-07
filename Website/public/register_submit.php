@@ -52,14 +52,18 @@
     	$password = md5($password_1);//encrypt the password before saving in the database
       $date = date('y-m-d H:i:s');
        
-       $sql = "INSERT INTO User (forename, surname, email, password, university, date_created, address, postcode) VALUES ('$forename', '$surname', '$email', '$password', '$university', '$date', '$address', '$postcode')";
+       $sql = "INSERT INTO User (role_id, forename, surname, email, password, university, date_created, address, postcode, strikes) VALUES (1, '$forename', '$surname', '$email', '$password', '$university', '$date', '$address', '$postcode', 0)";
         if ($conn->query($sql) === TRUE) {
         
         $selectSQL = "SELECT user_id FROM User WHERE email='$email' LIMIT 1";
         $select = mysqli_query($conn, $selectSQL);
         $row = mysqli_fetch_assoc($select);
+        $userID = $row['user_id'];
         
-       
+        $walletSQL = "INSERT INTO Wallet (wallet_id, wallet_amount) VALUES ('$userID', 0)";
+        if ($conn->query($walletSQL) === TRUE) {
+          $userSQL = "UPDATE User SET wallet_id = '$userID' WHERE user_id='$userID'";
+          if ($conn->query($userSQL) === TRUE) {
         
           $directoryName = '$row[user_id]';
           //Check if the directory already exists.
@@ -67,11 +71,13 @@
               //Directory does not exist, so lets create it.
               mkdir("users/$row[user_id]/images", 0755, true);
           }
-          header('Location: index.html');
+          header('Location: login.html');
           exit;
-        } else {
-          echo "Error: " . $sql . "<br>" . $conn->error;
+        } 
         }
+       }else {
+       echo "Error: " . $sql . "<br>" . $conn->error;
+      }
       
        
       

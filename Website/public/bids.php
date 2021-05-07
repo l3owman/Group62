@@ -1,9 +1,73 @@
 <?php
   session_start();
+  include('config.php');
+  $user_id = $_SESSION['u_id'];
+  
+  
+  
+
+  
+  $bidsSQL = "SELECT * FROM Listing WHERE buyer_id = '$user_id' AND status_id = 1;";
+  $bidsResult = mysqli_query($conn, $bidsSQL);
+
+  
+  $listing_data = array();
+    while($row =mysqli_fetch_assoc($bidsResult))
+    {
+        $listing_data[] = $row;
+    }
+   
+   $json = json_encode($listing_data, JSON_PRETTY_PRINT);
+   
+   $decoded_array = json_decode($json, true);
 ?>
+
+<?php function createCard(array $jsonArr) { ?>
+        <?php 
+        $firstFile = scandir($jsonArr["images"], SCANDIR_SORT_ASCENDING)[2];
+        $date = date_create($jsonArr["end_time"]);
+        $formatedDate = date_format($date,"l jS \of F Y H:i");
+         ?>
+        
+         <div class="card w-100 align-item-center mb-4" style="max-height: 25rem; min-height: 20rem; ">
+             <div class="card-header w-100">
+                <h5><?= $jsonArr["listing_name"] ?></h5>
+              </div>
+              <div class="row no-gutters">
+                <div class="col-2">
+                    <img src="<?= $jsonArr["images"] ?>/<?= $firstFile?>" class="img-fluid" alt="" width="170" height="200">
+                </div>
+                <div class="col-5">
+                    <div class="card-block px-2 col-9">
+                        <h5 class="mb-4 mt-2">Listing Description:</h5>
+                        <p class="card-text"><?= $jsonArr["description"] ?></p>
+                    </div>  
+                  </div>
+                  <div class="card-block text-center px-2">
+                    <h5 class="mb-4 mt-2">Listing Details:</h5>
+                          <p class="card-text">Current Bid Price: &#163;<?= $jsonArr["bid_highest"]/100 ?> </p>
+                        </div>
+                  </div>
+                  <div class="card-footer   text-muted">
+                    <div class="text-left" id="demo">
+   
+        
+                      Active Until: <?=  $formatedDate ?>
+                    </div>
+                  </div>
+         </div>
+    
+         
+        
+
+<?php } ?>
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Bids</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
   </head>
@@ -43,7 +107,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="index.html">
                   <span data-feather="home"></span>
-                  Browse <span class="sr-only">(current)</span>
+                  Browse
                 </a>
               </li>
               <li class="nav-item">
@@ -86,6 +150,11 @@
              <div class="btn-toolbar mb-2 mb-md-0">
              </div>
            </div>
+           <?php 
+              foreach($decoded_array as $activeListing){
+                createCard($activeListing);
+              }
+            ?>
            
         <?php else: ?>
           <div class="container h-100">

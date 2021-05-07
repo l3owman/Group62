@@ -41,20 +41,20 @@
             
             
             if($rowUser['role_id']==1){
-              if($row['wallet_id']==null){
-                header('Location: createWallet.php');
-                exit();
-              }else{
                 header('Location: index.php');
                 exit();
-              }
             }if($rowUser['role_id']==2){
                header('Location: admin.php');
                exit();
             }
+            if($rowUser['role_id']==3){
+               header('Location: banned.php');
+               exit();
+            }
+            
             
         }else{
-            echo "Invalid username and password";
+             header('Location: invalid_login.php');;
         }
 
     }

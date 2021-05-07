@@ -11,11 +11,13 @@
 
     <script src="bootstrap.min.js"></script>
     <script src="jquery.validate.min.js"></script>
+    <title>Create Listings</title>
 
   </head>
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">UniBid</a>
+      
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <?php if( $_SESSION['isLoggedOn']): ?>
@@ -112,7 +114,7 @@
               <div class="input-group mb-3">
                 <textarea class="form-control" id="listingDesc" name="listingDesc" placeholder="Item Description" aria-label="With textarea"></textarea>
               </div>
-              <label for="listingDuration">Select a Category</label>
+              <label for="listingCategory">Select a Category</label>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="listingCategory">Category</label>
@@ -125,6 +127,18 @@
                     <option value="4">Bathroom</option>
                     <option value="5">Books & Stationery</option>
                     <option value="6">Miscellaneous</option>
+                  </select>
+                </div>
+                <label for="listingCondition">Select a Condition</label>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="listingCondition">Condition</label>
+                  </div>
+                  <select class="custom-select" name="listingCondition" id="listingCondition">
+                    <option selected="true" disabled="disabled">Please Select a Condition</option>
+                    <option value="1">Perfect</option>
+                    <option value="2">Good</option>
+                    <option value="3">Poor</option>
                   </select>
                 </div>
               <div class="form-row">
@@ -271,7 +285,7 @@
               document.getElementById('listingBuyPrice').disabled=true;
            }
          </script>
-
+         
 
         <script>
           feather.replace()

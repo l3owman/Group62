@@ -2,8 +2,7 @@
   session_start();
   include('config.php');
 
-  $sql = "SELECT complaint_id, Listing.listing_id, listing_name, description, complaint  FROM Complaints, Listing 
-WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 AND Listing.status_id = 1 ORDER BY complaint_id;";
+  $sql = "SELECT complaint_id, Listing.listing_id, listing_name, description, complaint, (SELECT images FROM Listing WHERE Listing.listing_id = Complaints.listing_id) AS images FROM Complaints, Listing WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 AND Listing.status_id = 1 ORDER BY complaint_id;";
 
   $result = mysqli_query($conn, $sql);
 
@@ -15,10 +14,12 @@ WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 
 
    $json = json_encode($listing_data, JSON_PRETTY_PRINT);
 
-   $file_name = date('d-m-y') . '.json';
+   $file_name = date('d-m-y_test') . '.json';
    file_put_contents($file_name, $json);
 
    $decoded_array = json_decode($json, true);
+   
+   $activeComplaints = count($decoded_array);
 
 ?>
 
@@ -26,26 +27,30 @@ WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 
 
 <?php function createCard(array $jsonArr) { ?>
 
+      <?php 
+              $firstFile = scandir($jsonArr[0]["images"], SCANDIR_SORT_ASCENDING)[2];     
+       ?>
+
 <div class="card w-100 align-item-center mb-4" style="max-height: 25rem;">
     <div class="card-header w-100">
         <div class="miniComplaints">
-            <h5> Complaint: <?= $jsonArr[0]["complaint_id"] ?? 'N/A' ?></h5><span><h5>Listing: <?= $jsonArr[0]["listing_id"] ?? 'N/A' ?></h5></span>
+            <h5> Complaint ID: <?= $jsonArr[0]["complaint_id"]   ?></h5><span><h5>Listing ID: <?= $jsonArr[0]["listing_id"] ?></h5></span>
         </div>
     </div>
     <div class="row no-gutters">
         <div class="col-2">
-            <img src="test.png" class="img-fluid" alt="" width="170" height="170">
+            <img  src="<?= $jsonArr[0]["images"].$firstFile?>" class="img-fluid" alt="" width="170" height="170">
         </div>
         <div class="col-5">
             <div class="card-block px-2 col-9">
                 <h5 class="mb-4 mt-2">Complaint Description:</h5>
-                <p class="card-text"><?= $jsonArr[0]["complaint"] ?? 'N/A'?></p>
+                <p class="card-text"><?= $jsonArr[0]["complaint"]?></p>
             </div>
         </div>
         <div class="col-5">
             <div class="card-block text-center px-2">
-                <h5 class="mb-4 mt-2"><?= $jsonArr[0]["listing_name"] ?? 'N/A '?> </h5>
-                <p class="card-text"> <?= $jsonArr[0]["description"] ?? 'N/A' ?> </p>
+                <h5 class="mb-4 mt-2"><?= $jsonArr[0]["listing_name"]?> </h5>
+                <p class="card-text"> <?= $jsonArr[0]["description"] ?> </p>
                 <hr>
                 <a href="complaint_allow_listing.php" class="btn btn-primary">Allow Listing</a>
                 <a href="complaint_remove_listing.php" class="btn btn-primary">Remove Listing</a>
@@ -57,7 +62,7 @@ WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 
     <?php function createFootCard(array $jsonArr){ ?>
         <div class="card-footer   text-muted">
             <div class="miniComplaints">
-                Complaint: <?= $jsonArr["complaint_id"] ?? 'N/A'?> <span> Listing: <?= $jsonArr["listing_id"] ?? 'N/A'?></span>
+                Complaint: <?= $jsonArr["complaint_id"]?> <span> Listing: <?= $jsonArr["listing_id"]?></span>
             </div>
         </div>
    <?php }?>
@@ -107,7 +112,7 @@ WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 
               <li class="nav-item">
                 <a class="nav-link active" href="admin.php">
                   <span data-feather="edit"></span>
-                  Manage Complaints <span class="sr-only">(current)</span>
+                  Manage Complaints <span class="sr-only"></span>
                 </a>
               </li>
               <li class="nav-item">
@@ -121,13 +126,15 @@ WHERE Complaints.listing_id = Listing.listing_id AND Complaints.active_comp = 0 
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4 mb-3 border-bottom">
-            <h1 class="h2">Complaints</h1>
+            <span><h1 class="h2">Complaints</h1>
+            <p class="mb-2 text-muted text small">Active Complaints: <?php echo $activeComplaints; ?></p></span>
             <div class="btn-toolbar mb-2 mb-md-0">
             </div>
           </div>
             <?php
-
-                createCard($decoded_array);
+               if(!empty($decoded_array)):
+                  createCard($decoded_array);
+               endif;
 
             ?>
             <?php
