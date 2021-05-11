@@ -2,8 +2,9 @@
   session_start();
 
   include('config.php');
-  
-  $sql = "SELECT * FROM Listing WHERE status_id='3' AND buyer_id={$_SESSION['u_id']} ORDER BY end_time DESC";
+  $user_id = $_SESSION['u_id'];
+
+  $sql = "SELECT Listing.listing_id, category_id, condition_id, status_id, seller_id, Listing.buyer_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price, User.user_id, wallet_id, role_id, forename, surname, email, password, university, address, postcode, strikes, (SELECT count(Feedback.feedback_id) FROM Feedback WHERE rated_by = '$user_id' AND Listing.listing_id = Feedback.listing_id) as numberOfReviewForListing FROM Listing, Feedback JOIN User WHERE status_id='3' AND buyer_id='$user_id' AND Listing.seller_id = User.user_id GROUP BY User.user_id, Listing.listing_id, Listing.seller_id ORDER BY end_time DESC";
   $result = mysqli_query($conn, $sql);
   
   $listing_data = array();
@@ -11,6 +12,8 @@
     {
         $listing_data[] = $row;
     }
+    
+    
    
    $json = json_encode($listing_data, JSON_PRETTY_PRINT);
    
@@ -25,6 +28,10 @@
         $firstFile = scandir($jsonArr["images"], SCANDIR_SORT_ASCENDING)[2];
         $date = date_create($jsonArr["end_time"]);
         $formatedDate = date_format($date,"l jS \of F Y");
+        
+      
+        
+        
          ?>
         
          <div class="card w-100 align-item-center mb-4" style="max-height: 25rem;">
@@ -35,19 +42,41 @@
                 <div class="col-2">
                     <img src="<?= $jsonArr["images"] ?>/<?= $firstFile?>" class="img-fluid" alt="" width="170" height="170">
                 </div>
-                <div class="col-5">
-                    <div class="card-block px-2 col-9">
-                        <h5 class="mb-4 mt-2">Listing Description:</h5>
+                <div class="col-4">
+                    <div class="card-block px-2 col-10">
+                        <h5 class="mb-4 mt-2 text-center">Listing Description:</h5>
                         <p class="card-text"><?= $jsonArr["description"] ?></p>
                     </div>  
                   </div>
-                  <div class="card-block text-center px-2">
-                    <h5 class="mb-4 mt-2">Listing Details:</h5>
-                          <p class="card-text">Bought for: </p>
-                          
-
-                        </div>
+                  <div class="col-3">
+                    <div class="card-block px-2">
+                      <h5 class="mb-4 mt-2" style="display: block; ">Listing Details:</h5>
+                      <p class="card-text">Seller Details: <?= $jsonArr["forename"]; ?> <?= $jsonArr["surname"]; ?></p>
+                      <p class="card-text">Bought for: &#163;<?= $jsonArr["bid_highest"]/100 ?></p>
+                            
+                    </div>
                   </div>
+                  <div class="col-3">
+                    <div class="card-block px-2">
+                      <h5 class="mb-4 mt-2" style="display: block; ">Leave a Review:</h5>
+                       <div class="container">
+                      	<div class="row">
+                         <?php if($jsonArr["numberOfReviewForListing"]==0): ?>
+                         <p class="card-text">Please consider leaving a review for the seller below!</p>
+                       <form action="reviewUser.php" method="POST">
+                          <button type="submit" id="review" class="btn btn-primary btn-md mr-1 mb-2" value="<?= $jsonArr["listing_id"] ?>" name="reviewListing">Submit Review</button>
+                      </form>
+                      <?php else: ?>
+                        <p class="card-text">Your Review Has Been Submitted, Thank You!</p>
+                      <?php endif; ?>
+                     
+                        
+                      </div>
+                       </div>     
+                    </div>
+                  </div>
+                  </div>
+        
                   <div class="card-footer   text-muted">
                     <div class="text-left" id="demo">
    
@@ -56,12 +85,14 @@
                     </div>
                   </div>
          </div>
+   
         
 
 <?php } ?>
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Won Auctions</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
   </head>
@@ -169,6 +200,7 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
           feather.replace()
-        </script>   
+        </script>
+        
       </body>
 </html>

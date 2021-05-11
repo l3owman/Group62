@@ -17,15 +17,18 @@
     }
 
     if(isset($conn, $_POST['listingBuyPrice'])){
-      $buyNow = $buy_now_price;
+      $buyNow = $buy_now_price*100;
     }else{
       $buyNow = 0;
     }
 
 
-    $buy_now_price = mysqli_real_escape_string($conn, $_POST['listingBuyPrice']);
-    $bid_price = mysqli_real_escape_string($conn, $_POST['listingBidPrice']);
+    
+    $bid_price = mysqli_real_escape_string($conn, $_POST['listingBidPrice']*100);
     $listingDuration = mysqli_real_escape_string($conn, $_POST['listingDuration']);
+    $category = mysqli_real_escape_string($conn, $_POST['listingCategory']);
+    $condition = mysqli_real_escape_string($conn, $_POST['listingCondition']);
+    
     $oldDate = date('y-m-d H:i:s');
     $bstDate = date('y-m-d H:i:s', strtotime($oldDate. " +1 hours"));
     $newDate = date('y-m-d H:i:s', strtotime($bstDate. " + {$listingDuration} hours"));
@@ -63,7 +66,7 @@
         // Verify MYME type of the file
 
 
-            $sql = "INSERT INTO Listing (status_id, seller_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price) VALUES (1, '$seller_id', '$listing_name', '$description', '$filename', '$bstDate', '$newDate', 0, 0, '$bool', '$buyNow', '$bid_price')";
+            $sql = "INSERT INTO Listing (category_id, condition_id, status_id, seller_id, listing_name, description, images, start_time, end_time, num_of_bids, bid_highest, buy_now, buy_now_price, start_price) VALUES ('$category', '$condition', 1, '$seller_id', '$listing_name', '$description', '$filename', '$bstDate', '$newDate', 0, 0, '$bool', '$buyNow', '$bid_price')";
             if ($conn->query($sql) === TRUE) {
               $selectSQL = "SELECT MAX(listing_id) AS max_listing_id FROM Listing WHERE seller_id='$seller_id' LIMIT 1";
               $select = mysqli_query($conn, $selectSQL);

@@ -45,8 +45,11 @@
                           <p class="card-text">Highest Bid: &#163;<?= $jsonArr["bid_highest"]/100 ?>  </p>
                           <p class="card-text">Number of Bids: <?= $jsonArr["num_of_bids"] ?> </p>
                           <hr>
-                          <a href="#" class="btn btn-primary">Edit Listing</a>
-                          <a href="#" class="btn btn-primary">Remove Listing</a>
+                          <form action="removeListing.php" method="post">
+                            <button type="submit" value="<?php echo $jsonArr["listing_id"];?>" name="listing_id" class="btn btn-primary">Remove Listing</a>
+                          </form>
+                          
+                         
                         </div>
                   </div>
                   <div class="card-footer   text-muted">
@@ -64,6 +67,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Active Listings</title>
     <link rel="stylesheet" href="style.css">
     <link href="bootstrap.min.css" rel="stylesheet">
   </head>
