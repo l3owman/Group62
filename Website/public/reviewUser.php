@@ -1,9 +1,9 @@
-<?php  
+<?php
   session_start();
   include('config.php');
-  
+
   $selectedlistingID = $_POST['reviewListing'];
-  
+
   $sql = "SELECT  * FROM Listing JOIN User WHERE status_id='3' AND listing_id= '$selectedlistingID' AND Listing.seller_id = User.user_id GROUP BY User.user_id, Listing.listing_id, Listing.seller_id ORDER BY end_time";
   $select = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($select);
@@ -18,7 +18,7 @@
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="jquery.min.js" async></script>
     <script src="bootstrap.min.js" async></script>
-    
+
     <style>
       .rating {
       float:left;
@@ -48,13 +48,13 @@
 
     .rating > input:checked ~ label {
         color: dodgerblue;
-        
+
     }
 
     .rating:not(:checked) > label:hover,
     .rating:not(:checked) > label:hover ~ label {
         color: dodgerblue;
-        
+
     }
 
     .rating > input:checked + label:hover,
@@ -63,7 +63,7 @@
     .rating > input:checked ~ label:hover ~ label,
     .rating > label:hover ~ input:checked ~ label {
         color: dodgerblue;
-        
+
     }
 
     .rating > label:active {
@@ -94,15 +94,15 @@
                                 <p class="card-text"><strong>Date Won:</strong> <?php echo $row['end_time']; ?></p>
                                 <p class="card-text">Please select a Rating to give to the user based upon the listing.
                                 </p>
-                            </div>  
+                            </div>
                             <div class="container">
-                           	  <div class="row">
+                              <div class="row">
                               	<div class="rating" style="display: block; margin: auto;">
-                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Meh"></label>
-                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Kinda bad"></label>
-                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Kinda bad"></label>
-                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Sucks big tim"></label>
-                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time"></label>
+                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Perfect"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Good"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Okay"></label>
+                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Not Great"></label>
+                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Terrible"></label>
                                   </div>
                               	</div>
                               </div>
@@ -130,7 +130,7 @@
                     <p id="message">Your review was successfully placed.</p>
                     <a href="wonauctions.php" class="btn btn-primary">Return</a>
                   </div>
-                
+
                 </div>
         </div>
   </div>
@@ -139,16 +139,16 @@
       var radioVal = document.getElementsByName('rating');
       var listing_id = <?php echo $selectedlistingID ?>;
       var rating;
-      var seller_id = <?php echo $row['seller_id'];?> 
+      var seller_id = <?php echo $row['seller_id'];?>
 
       for (var i = 0, length = radioVal.length; i < length; i++) {
         if (radioVal[i].checked) {
-          
+
           rating = (radioVal[i].value);
           break;
         }
       }
-      
+
       if(rating!=null){
           $.ajax({
             url: 'addUserRating.php',
@@ -156,14 +156,14 @@
             data:{
               listing_id: listing_id,
               rating: rating,
-              seller_id: seller_id 
+              seller_id: seller_id
             },
             success: function(response){
                $("#modal").modal();
-               
-               
-              
-                         
+
+
+
+
           }
       });
     }
