@@ -42,6 +42,7 @@ class MyListingsViewController: UIViewController,UICollectionViewDelegate,UIColl
             do{
                 typealias Listings = [[String:String?]]
                 self.listings = try? JSONDecoder().decode(Listings.self, from: jsonData)
+                if(self.listings!.count>0){
                 for i in 0..<(self.listings!.count-1){
                     
                         self.listingCount = self.listingCount + 1
@@ -52,7 +53,7 @@ class MyListingsViewController: UIViewController,UICollectionViewDelegate,UIColl
                        // print(type(of: self.listings))
                 }
                 }
-                
+                }
             }
         }.resume()
     }
