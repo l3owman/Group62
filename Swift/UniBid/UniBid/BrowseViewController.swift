@@ -32,11 +32,12 @@ class BrowseViewController: UIViewController,UICollectionViewDelegate,UICollecti
             do{
                 typealias Listings = [[String:String?]]
                 self.listings = try? JSONDecoder().decode(Listings.self, from: jsonData)
+                if(self.listings!.count>0){
                 for i in 0..<(self.listings!.count-1){
                     
                         self.listingCount = self.listingCount + 1
                 }
-                
+                }
             }
         }.resume()
     }
